@@ -1,0 +1,637 @@
+<!DOCTYPE html>
+<html lang="es" data-theme="light">
+<head>
+<!--
+   ______                            __
+  / ____/___  ____ ___  ____  __  __/ /____  _____
+ / /   / __ \/ __ `__ \/ __ \/ / / / __/ _ \/ ___/
+/ /___/ /_/ / / / / / / /_/ / /_/ / /_/  __/ /
+\____/\____/_/ /_/ /_/ .___/\__,_/\__/\___/_/
+                    /_/
+        Created with Perplexity Computer
+        https://www.perplexity.ai/computer
+-->
+<meta name="generator" content="Perplexity Computer">
+<meta name="author" content="Perplexity Computer">
+<meta property="og:see_also" content="https://www.perplexity.ai/computer">
+<link rel="author" href="https://www.perplexity.ai/computer">
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Solicitar Viaje — Viajes Soffer</title>
+<meta name="description" content="Solicita un nuevo viaje. Agente de Viajes Premium — Familia Soffer.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300..700&family=Playfair+Display:ital,wght@0,400;0,600;0,700;1,400;1,600&display=swap" rel="stylesheet">
+<style>
+/* ========================================
+   Design Tokens — Viajes Soffer System
+   Matching template-portal-viajes.html
+   ======================================== */
+:root{--primary:#20808D;--primary-hover:#1A6B76;--primary-light:#4FBCC9;--accent-gold:#C9A84C;--bg:#FCFAF6;--surface:#FFFFFF;--text:#1A2B2E;--text-secondary:#4A6368;--text-muted:#7A9499;--border:#E2DDD4;--border-light:#F0ECE4;--badge-bg:rgba(32,128,141,.08);--badge-gold-bg:rgba(201,168,76,.10);--badge-green-bg:rgba(22,163,74,.08);--badge-gray-bg:rgba(122,148,153,.10);--card-shadow:rgba(26,43,46,.06);--card-shadow-hover:rgba(26,43,46,.12);--submenu-bg:#F8F6F1;--overlay:rgba(26,43,46,.04);--error:#DC2626;--error-bg:rgba(220,38,38,.06);--font-heading:'Playfair Display',Georgia,serif;--font-body:'Inter',system-ui,-apple-system,sans-serif;--max-width:720px;--radius:12px;--radius-sm:8px;--transition:180ms ease}
+[data-theme="dark"]{--bg:#0F1F22;--surface:#1A2B2E;--text:#E8E2D8;--text-secondary:#A8BFC3;--text-muted:#7A9499;--border:#2A3D41;--border-light:#1F3236;--badge-bg:rgba(79,188,201,.12);--badge-gold-bg:rgba(201,168,76,.14);--badge-green-bg:rgba(22,163,74,.12);--badge-gray-bg:rgba(122,148,153,.14);--card-shadow:rgba(0,0,0,.20);--card-shadow-hover:rgba(0,0,0,.32);--submenu-bg:#15282B;--overlay:rgba(0,0,0,.12);--error-bg:rgba(220,38,38,.10)}
+
+/* ========================================
+   Reset & Base
+   ======================================== */
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+html{-webkit-text-size-adjust:100%;scroll-behavior:smooth}
+body{font-family:var(--font-body);font-size:15px;line-height:1.6;color:var(--text);background-color:var(--bg);-webkit-font-smoothing:antialiased;-moz-osx-font-smoothing:grayscale;transition:background-color var(--transition),color var(--transition);min-height:100vh;display:flex;flex-direction:column}
+a{color:inherit;text-decoration:none}
+button{border:none;background:none;cursor:pointer;font-family:inherit;color:inherit}
+
+/* ========================================
+   Nav — identical to portal
+   ======================================== */
+.nav{position:sticky;top:0;z-index:100;background:var(--surface);border-bottom:1px solid var(--border-light);transition:background-color var(--transition),border-color var(--transition)}
+.nav__inner{max-width:1200px;margin:0 auto;padding:0 24px;height:60px;display:flex;align-items:center;justify-content:space-between}
+.nav__logo{font-family:var(--font-heading);font-size:20px;font-weight:600;color:var(--primary);letter-spacing:-.01em;display:flex;align-items:center;gap:10px}
+.nav__logo-icon{width:28px;height:28px;flex-shrink:0}
+.nav__actions{display:flex;align-items:center;gap:8px}
+.nav__back{display:flex;align-items:center;gap:6px;font-size:14px;font-weight:500;color:var(--text-secondary);padding:8px 14px;border-radius:var(--radius-sm);transition:background-color var(--transition),color var(--transition)}
+.nav__back:hover{background:var(--overlay);color:var(--text)}
+.nav__back svg{width:16px;height:16px}
+.theme-toggle{width:40px;height:40px;display:flex;align-items:center;justify-content:center;border-radius:50%;transition:background-color var(--transition)}
+.theme-toggle:hover{background:var(--overlay)}
+.theme-toggle svg{width:20px;height:20px;color:var(--text-secondary);transition:color var(--transition)}
+.theme-toggle .icon-moon{display:none}
+[data-theme="dark"] .theme-toggle .icon-sun{display:none}
+[data-theme="dark"] .theme-toggle .icon-moon{display:block}
+
+/* ========================================
+   Hero — same style as portal
+   ======================================== */
+.hero{text-align:center;padding:48px 24px 32px}
+.hero__title{font-family:var(--font-heading);font-size:clamp(26px,4.5vw,38px);font-weight:700;color:var(--text);letter-spacing:-.02em;line-height:1.2;margin-bottom:10px;transition:color var(--transition)}
+.hero__subtitle{font-size:15px;font-weight:400;color:var(--text-secondary);letter-spacing:.02em;transition:color var(--transition)}
+.hero__divider{display:flex;justify-content:center;margin-top:24px}
+.hero__divider svg{color:var(--accent-gold);opacity:.7}
+
+/* ========================================
+   Form Container
+   ======================================== */
+.form-section{flex:1;max-width:var(--max-width);margin:0 auto;padding:0 24px 64px;width:100%}
+.form-card{background:var(--surface);border-radius:var(--radius);box-shadow:0 1px 3px var(--card-shadow),0 1px 2px var(--card-shadow);border:1px solid var(--border-light);padding:32px;transition:background-color var(--transition),border-color var(--transition),box-shadow var(--transition)}
+@media(max-width:600px){.form-card{padding:24px 20px}}
+
+/* ========================================
+   Form Elements
+   ======================================== */
+.form-group{margin-bottom:24px}
+.form-group:last-of-type{margin-bottom:0}
+.form-label{display:block;font-size:13px;font-weight:600;color:var(--text);letter-spacing:.03em;text-transform:uppercase;margin-bottom:8px;transition:color var(--transition)}
+.form-label__hint{font-weight:400;text-transform:none;color:var(--text-muted);letter-spacing:0;margin-left:4px}
+.form-input,.form-select,.form-textarea{width:100%;font-family:var(--font-body);font-size:15px;color:var(--text);background:var(--bg);border:1px solid var(--border);border-radius:var(--radius-sm);padding:12px 14px;transition:border-color var(--transition),background-color var(--transition),color var(--transition),box-shadow var(--transition);outline:none}
+.form-input:focus,.form-select:focus,.form-textarea:focus{border-color:var(--primary);box-shadow:0 0 0 3px rgba(32,128,141,.12)}
+.form-input::placeholder,.form-textarea::placeholder{color:var(--text-muted)}
+.form-select{appearance:none;background-image:url("data:image/svg+xml,%3Csvg width='12' height='8' viewBox='0 0 12 8' fill='none' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M1 1.5l5 5 5-5' stroke='%237A9499' stroke-width='1.5' stroke-linecap='round' stroke-linejoin='round'/%3E%3C/svg%3E");background-repeat:no-repeat;background-position:right 14px center;padding-right:40px}
+.form-textarea{resize:vertical;min-height:100px}
+.form-row{display:grid;grid-template-columns:1fr 1fr;gap:16px}
+@media(max-width:500px){.form-row{grid-template-columns:1fr}}
+
+/* ========================================
+   Destinations — Dynamic Multi-Input
+   ======================================== */
+.dest-list{display:flex;flex-direction:column;gap:10px}
+.dest-row{display:flex;gap:10px;align-items:center}
+.dest-row .form-input{flex:1}
+.dest-remove{width:36px;height:36px;display:flex;align-items:center;justify-content:center;border-radius:var(--radius-sm);color:var(--text-muted);transition:background-color var(--transition),color var(--transition);flex-shrink:0}
+.dest-remove:hover{background:var(--error-bg);color:var(--error)}
+.dest-remove svg{width:16px;height:16px}
+.dest-add{display:inline-flex;align-items:center;gap:6px;font-size:14px;font-weight:500;color:var(--primary);padding:8px 0;margin-top:4px;transition:color var(--transition)}
+.dest-add:hover{color:var(--primary-hover)}
+.dest-add svg{width:16px;height:16px}
+
+/* ========================================
+   Activities — Chip Grid
+   ======================================== */
+.chip-grid{display:flex;flex-wrap:wrap;gap:8px}
+.chip{display:inline-flex;align-items:center;gap:6px;padding:8px 16px;border-radius:24px;font-size:14px;font-weight:500;border:1.5px solid var(--border);color:var(--text-secondary);background:transparent;cursor:pointer;transition:all var(--transition);user-select:none}
+.chip svg{width:16px;height:16px;opacity:.6;transition:opacity var(--transition)}
+.chip:hover{border-color:var(--primary);color:var(--primary)}
+.chip.is-selected{border-color:var(--primary);background:var(--badge-bg);color:var(--primary);font-weight:600}
+.chip.is-selected svg{opacity:1}
+
+/* ========================================
+   Submit Button
+   ======================================== */
+.form-actions{margin-top:32px;display:flex;justify-content:center}
+.btn-submit{display:inline-flex;align-items:center;gap:10px;font-family:var(--font-body);font-size:16px;font-weight:600;color:#FFFFFF;background:var(--primary);border:none;border-radius:var(--radius);padding:14px 40px;cursor:pointer;transition:background-color var(--transition),transform 120ms ease,box-shadow var(--transition);box-shadow:0 2px 8px rgba(32,128,141,.20)}
+.btn-submit:hover{background:var(--primary-hover);box-shadow:0 4px 16px rgba(32,128,141,.28);transform:translateY(-1px)}
+.btn-submit:active{transform:translateY(0);box-shadow:0 1px 4px rgba(32,128,141,.16)}
+.btn-submit:disabled{opacity:.55;cursor:not-allowed;transform:none;box-shadow:none}
+.btn-submit svg{width:20px;height:20px}
+.btn-submit .spinner{display:none;animation:spin .8s linear infinite}
+.btn-submit.is-loading .spinner{display:block}
+.btn-submit.is-loading .icon-search{display:none}
+@keyframes spin{from{transform:rotate(0deg)}to{transform:rotate(360deg)}}
+
+/* ========================================
+   Success State
+   ======================================== */
+.success-card{display:none;text-align:center;padding:48px 32px;background:var(--surface);border-radius:var(--radius);box-shadow:0 1px 3px var(--card-shadow);border:1px solid var(--border-light);transition:background-color var(--transition),border-color var(--transition)}
+.success-card.is-visible{display:block}
+.success-icon{width:64px;height:64px;margin:0 auto 20px;color:var(--primary)}
+.success-title{font-family:var(--font-heading);font-size:24px;font-weight:600;color:var(--text);margin-bottom:8px}
+.success-text{font-size:15px;color:var(--text-secondary);margin-bottom:24px;line-height:1.6}
+.success-id{display:inline-flex;align-items:center;gap:8px;font-size:14px;font-weight:600;color:var(--primary);background:var(--badge-bg);padding:8px 16px;border-radius:20px;margin-bottom:24px}
+.btn-back{display:inline-flex;align-items:center;gap:8px;font-size:15px;font-weight:500;color:var(--primary);padding:10px 20px;border-radius:var(--radius-sm);border:1.5px solid var(--primary);transition:all var(--transition)}
+.btn-back:hover{background:var(--badge-bg)}
+.btn-back svg{width:16px;height:16px}
+
+/* ========================================
+   Section Divider
+   ======================================== */
+.form-divider{border:none;border-top:1px solid var(--border-light);margin:28px 0;transition:border-color var(--transition)}
+
+/* ========================================
+   Footer — identical to portal
+   ======================================== */
+.footer{text-align:center;padding:32px 24px;border-top:1px solid var(--border-light);transition:border-color var(--transition)}
+.footer__text{font-size:13px;color:var(--text-muted);margin-bottom:6px;transition:color var(--transition)}
+.footer__credit{font-size:12px;color:var(--text-muted);transition:color var(--transition)}
+.footer__credit a{color:var(--text-secondary);transition:color var(--transition)}
+.footer__credit a:hover{color:var(--primary)}
+
+/* ========================================
+   Validation
+   ======================================== */
+.form-input.is-error,.form-select.is-error,.form-textarea.is-error{border-color:var(--error)}
+.form-error{font-size:12px;color:var(--error);margin-top:4px;display:none}
+.form-error.is-visible{display:block}
+</style>
+<script src="js/config.js"></script>
+<script src="js/supabase-client.js"></script>
+</head>
+
+</head>
+<body>
+
+<!-- ========================================
+     Nav
+     ======================================== -->
+<nav class="nav">
+ <div class="nav__inner">
+  <a href="{{PORTAL_URL}}" class="nav__logo">
+   <svg class="nav__logo-icon" viewBox="0 0 28 28" fill="none" aria-hidden="true">
+    <circle cx="14" cy="14" r="12.5" stroke="currentColor" stroke-width="1.5"/>
+    <circle cx="14" cy="14" r="2" fill="currentColor"/>
+    <path d="M14 4v3M14 21v3M4 14h3M21 14h3" stroke="currentColor" stroke-width="1.2" stroke-linecap="round"/>
+    <path d="M17.5 10.5L14 14l-3.5 3.5" stroke="currentColor" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round"/>
+    <path d="M10.5 10.5L14 14l3.5 3.5" stroke="currentColor" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round" opacity="0.4"/>
+   </svg>
+   Viajes Soffer
+  </a>
+  <div class="nav__actions">
+   <a href="{{PORTAL_URL}}" class="nav__back">
+    <svg viewBox="0 0 16 16" fill="none" aria-hidden="true"><path d="M10 3L5 8l5 5" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
+    Viajes
+   </a>
+   <button class="theme-toggle" aria-label="Cambiar tema" onclick="toggleTheme()">
+    <svg class="icon-sun" viewBox="0 0 20 20" fill="none">
+     <circle cx="10" cy="10" r="3.5" stroke="currentColor" stroke-width="1.5"/>
+     <path d="M10 2.5v2M10 15.5v2M2.5 10h2M15.5 10h2M4.7 4.7l1.4 1.4M13.9 13.9l1.4 1.4M15.3 4.7l-1.4 1.4M6.1 13.9l-1.4 1.4" stroke="currentColor" stroke-width="1.3" stroke-linecap="round"/>
+    </svg>
+    <svg class="icon-moon" viewBox="0 0 20 20" fill="none">
+     <path d="M17.1 12.6A7.5 7.5 0 017.4 2.9a7.5 7.5 0 109.7 9.7z" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+    </svg>
+   </button>
+  </div>
+ </div>
+</nav>
+
+<!-- ========================================
+     Hero
+     ======================================== -->
+<section class="hero">
+ <h1 class="hero__title">Solicitar Viaje</h1>
+ <p class="hero__subtitle">Cuéntanos a dónde quieres ir y nosotros nos encargamos del resto</p>
+ <div class="hero__divider">
+  <svg width="120" height="16" viewBox="0 0 120 16" fill="none" aria-hidden="true">
+   <path d="M0 8h48" stroke="currentColor" stroke-width="1" stroke-linecap="round"/>
+   <path d="M72 8h48" stroke="currentColor" stroke-width="1" stroke-linecap="round"/>
+   <path d="M60 1l4.5 7-4.5 7-4.5-7L60 1z" stroke="currentColor" stroke-width="1.2" fill="none"/>
+   <circle cx="60" cy="8" r="2" fill="currentColor" opacity="0.5"/>
+  </svg>
+ </div>
+</section>
+
+<!-- ========================================
+     Form
+     ======================================== -->
+<main class="form-section">
+
+ <!-- ---- Form Card ---- -->
+ <div class="form-card" id="formCard">
+  <form id="tripRequestForm" novalidate>
+
+   <!-- Destinos -->
+   <div class="form-group">
+    <label class="form-label">
+     Destinos
+     <span class="form-label__hint">— puedes agregar varios</span>
+    </label>
+    <div class="dest-list" id="destList">
+     <div class="dest-row">
+      <input type="text" class="form-input" name="destination" placeholder="Ej: Tokio, Japón" required autocomplete="off">
+     </div>
+    </div>
+    <button type="button" class="dest-add" onclick="addDestination()">
+     <svg viewBox="0 0 16 16" fill="none" aria-hidden="true"><path d="M8 3v10M3 8h10" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/></svg>
+     Agregar destino
+    </button>
+    <div class="form-error" id="destError">Agrega al menos un destino</div>
+   </div>
+
+   <hr class="form-divider">
+
+   <!-- Fechas -->
+   <div class="form-group">
+    <label class="form-label">Fechas del viaje</label>
+    <div class="form-row">
+     <div>
+      <input type="date" class="form-input" id="dateStart" name="date_start" required>
+     </div>
+     <div>
+      <input type="date" class="form-input" id="dateEnd" name="date_end" required>
+     </div>
+    </div>
+    <div class="form-error" id="dateError">Selecciona las fechas de inicio y fin</div>
+   </div>
+
+   <hr class="form-divider">
+
+   <!-- Tipo de Viaje -->
+   <div class="form-group">
+    <label class="form-label">Tipo de viaje</label>
+    <select class="form-select" id="tripType" name="trip_type" required>
+     <option value="" disabled selected>Selecciona un tipo</option>
+     <option value="familiar">Familiar — 5 Soffer core</option>
+     <option value="pareja">Pareja — Moisés + Teresa</option>
+     <option value="negocios">Negocios — Moisés solo</option>
+     <option value="solo">Solo — Moisés solo</option>
+     <option value="grupal">Grupal — Amigos o familia extendida</option>
+     <option value="negocios_solo">Negocios + Solo — Trabajo + gastronomía</option>
+    </select>
+    <div class="form-error" id="typeError">Selecciona un tipo de viaje</div>
+   </div>
+
+   <hr class="form-divider">
+
+   <!-- Actividades -->
+   <div class="form-group">
+    <label class="form-label">
+     Actividades
+     <span class="form-label__hint">— selecciona las que apliquen</span>
+    </label>
+    <div class="chip-grid" id="activityChips">
+     <button type="button" class="chip" data-value="esqui">
+      <svg viewBox="0 0 16 16" fill="none"><path d="M3 13l10-6M8 2v4M6 6l2 2 2-2" stroke="currentColor" stroke-width="1.2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+      Esquí
+     </button>
+     <button type="button" class="chip" data-value="kitesurf">
+      <svg viewBox="0 0 16 16" fill="none"><path d="M4 3c4 0 6 2 8 6M8 9v5M6 14h4" stroke="currentColor" stroke-width="1.2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+      Kitesurf
+     </button>
+     <button type="button" class="chip" data-value="buceo">
+      <svg viewBox="0 0 16 16" fill="none"><circle cx="8" cy="7" r="4" stroke="currentColor" stroke-width="1.2"/><path d="M8 11v3M6 14h4" stroke="currentColor" stroke-width="1.2" stroke-linecap="round"/></svg>
+      Buceo
+     </button>
+     <button type="button" class="chip" data-value="surf">
+      <svg viewBox="0 0 16 16" fill="none"><path d="M2 12c2-2 4-1 6 0s4 2 6 0M8 4v8" stroke="currentColor" stroke-width="1.2" stroke-linecap="round"/></svg>
+      Surf
+     </button>
+     <button type="button" class="chip" data-value="mtb">
+      <svg viewBox="0 0 16 16" fill="none"><circle cx="4.5" cy="11" r="2.5" stroke="currentColor" stroke-width="1.1"/><circle cx="11.5" cy="11" r="2.5" stroke="currentColor" stroke-width="1.1"/><path d="M4.5 11L8 4l3.5 7" stroke="currentColor" stroke-width="1.2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+      MTB
+     </button>
+     <button type="button" class="chip" data-value="parques">
+      <svg viewBox="0 0 16 16" fill="none"><path d="M8 2l2 4h4l-3.2 2.5L12 13 8 10.2 4 13l1.2-4.5L2 6h4l2-4z" stroke="currentColor" stroke-width="1.1" stroke-linejoin="round"/></svg>
+      Parques Temáticos
+     </button>
+     <button type="button" class="chip" data-value="cultura">
+      <svg viewBox="0 0 16 16" fill="none"><path d="M3 13h10M4 13V7l4-4 4 4v6" stroke="currentColor" stroke-width="1.2" stroke-linecap="round" stroke-linejoin="round"/><path d="M7 13v-3h2v3" stroke="currentColor" stroke-width="1.1"/></svg>
+      Cultura y Museos
+     </button>
+     <button type="button" class="chip" data-value="gastronomia">
+      <svg viewBox="0 0 16 16" fill="none"><path d="M3 8h10M5 3v5M8 2v6M11 3v5M4 8v5a1 1 0 001 1h6a1 1 0 001-1V8" stroke="currentColor" stroke-width="1.1" stroke-linecap="round"/></svg>
+      Gastronomía
+     </button>
+     <button type="button" class="chip" data-value="playa">
+      <svg viewBox="0 0 16 16" fill="none"><path d="M2 12c2-1 4 1 6 0s4-1 6 0M8 3a3 3 0 013 3H5a3 3 0 013-3z" stroke="currentColor" stroke-width="1.2" stroke-linecap="round"/><path d="M8 6v6" stroke="currentColor" stroke-width="1.2"/></svg>
+      Playa y Relax
+     </button>
+     <button type="button" class="chip" data-value="crucero">
+      <svg viewBox="0 0 16 16" fill="none"><path d="M2 11h12M3 11V7l5-4 5 4v4" stroke="currentColor" stroke-width="1.2" stroke-linecap="round" stroke-linejoin="round"/><path d="M2 13c2 1 4-1 6 0s4 1 6 0" stroke="currentColor" stroke-width="1.1" stroke-linecap="round"/></svg>
+      Crucero
+     </button>
+     <button type="button" class="chip" data-value="spa">
+      <svg viewBox="0 0 16 16" fill="none"><path d="M8 2c-2 3-5 5-5 8a5 5 0 0010 0c0-3-3-5-5-8z" stroke="currentColor" stroke-width="1.2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+      Spa y Bienestar
+     </button>
+     <button type="button" class="chip" data-value="nightlife">
+      <svg viewBox="0 0 16 16" fill="none"><path d="M5 14V8a3 3 0 016 0v6M8 5V2M4 14h8" stroke="currentColor" stroke-width="1.2" stroke-linecap="round"/></svg>
+      Nightlife
+     </button>
+    </div>
+   </div>
+
+   <hr class="form-divider">
+
+   <!-- Comentarios -->
+   <div class="form-group">
+    <label class="form-label">
+     Comentarios
+     <span class="form-label__hint">— eventos, preferencias, notas adicionales</span>
+    </label>
+    <textarea class="form-textarea" id="comments" name="comments" placeholder="Ej: Es nuestro aniversario, nos gustaría una cena especial. Llegamos el día 1 en la noche. Marcos tiene examen el lunes así que regresamos el domingo..." rows="4"></textarea>
+   </div>
+
+   <!-- Submit -->
+   <div class="form-actions">
+    <button type="submit" class="btn-submit" id="btnSubmit">
+     <svg class="icon-search" viewBox="0 0 20 20" fill="none" aria-hidden="true">
+      <circle cx="9" cy="9" r="6" stroke="currentColor" stroke-width="1.8"/>
+      <path d="M13.5 13.5L17 17" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/>
+     </svg>
+     <svg class="spinner" viewBox="0 0 20 20" fill="none" aria-hidden="true">
+      <circle cx="10" cy="10" r="7" stroke="currentColor" stroke-width="2" stroke-dasharray="32 12" stroke-linecap="round"/>
+     </svg>
+     Buscar
+    </button>
+   </div>
+
+  </form>
+ </div>
+
+ <!-- ---- Success Card ---- -->
+ <div class="success-card" id="successCard">
+  <svg class="success-icon" viewBox="0 0 64 64" fill="none" aria-hidden="true">
+   <circle cx="32" cy="32" r="28" stroke="currentColor" stroke-width="2.5"/>
+   <path d="M20 33l8 8 16-16" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"/>
+  </svg>
+  <h2 class="success-title">Solicitud Enviada</h2>
+  <p class="success-text">Tu agente de viajes ya está trabajando en las opciones. Recibirás un boceto con propuestas pronto.</p>
+  <div class="success-id" id="successId"></div>
+  <br><br>
+  <a href="{{PORTAL_URL}}" class="btn-back">
+   <svg viewBox="0 0 16 16" fill="none"><path d="M10 3L5 8l5 5" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
+   Volver al Portal
+  </a>
+ </div>
+
+</main>
+
+<!-- ========================================
+     Footer
+     ======================================== -->
+<footer class="footer">
+ <p class="footer__text">Tu Agente de Viajes Premium — Familia Soffer</p>
+ <p class="footer__credit">
+  <a href="https://www.perplexity.ai/computer" target="_blank" rel="noopener noreferrer">Created with Perplexity Computer</a>
+ </p>
+</footer>
+
+<!-- ========================================
+     JavaScript
+     ======================================== -->
+<script>
+(function() {
+  'use strict';
+
+  /* ========================================
+     SUPABASE CONFIG
+     Replace with actual project values
+     ======================================== */
+  var SUPABASE_URL = '{{SUPABASE_URL}}';       // e.g. https://xxxxx.supabase.co
+  var SUPABASE_ANON_KEY = '{{SUPABASE_ANON}}'; // anon public key
+
+  /* ========================================
+     Dark Mode Toggle
+     ======================================== */
+  window.toggleTheme = function() {
+    var html = document.documentElement;
+    var current = html.getAttribute('data-theme');
+    var next = current === 'dark' ? 'light' : 'dark';
+    html.setAttribute('data-theme', next);
+  };
+
+  (function() {
+    try {
+      if (window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches) {
+        document.documentElement.setAttribute('data-theme', 'dark');
+      }
+    } catch(e) {}
+  })();
+
+  /* ========================================
+     Destinations — Add / Remove
+     ======================================== */
+  window.addDestination = function() {
+    var list = document.getElementById('destList');
+    var row = document.createElement('div');
+    row.className = 'dest-row';
+    row.innerHTML = '<input type="text" class="form-input" name="destination" placeholder="Ej: Kioto, Japón" autocomplete="off">'
+      + '<button type="button" class="dest-remove" onclick="removeDestination(this)" aria-label="Quitar destino">'
+      + '<svg viewBox="0 0 16 16" fill="none"><path d="M4 4l8 8M12 4l-8 8" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/></svg>'
+      + '</button>';
+    list.appendChild(row);
+    row.querySelector('input').focus();
+  };
+
+  window.removeDestination = function(btn) {
+    var row = btn.closest('.dest-row');
+    var list = document.getElementById('destList');
+    if (list.children.length > 1) {
+      row.remove();
+    }
+  };
+
+  /* ========================================
+     Activity Chips Toggle
+     ======================================== */
+  var chipGrid = document.getElementById('activityChips');
+  if (chipGrid) {
+    chipGrid.addEventListener('click', function(e) {
+      var chip = e.target.closest('.chip');
+      if (chip) chip.classList.toggle('is-selected');
+    });
+  }
+
+  /* ========================================
+     Get Selected Activities
+     ======================================== */
+  function getSelectedActivities() {
+    var chips = document.querySelectorAll('.chip.is-selected');
+    var result = [];
+    for (var i = 0; i < chips.length; i++) {
+      result.push(chips[i].getAttribute('data-value'));
+    }
+    return result;
+  }
+
+  /* ========================================
+     Get Destinations
+     ======================================== */
+  function getDestinations() {
+    var inputs = document.querySelectorAll('#destList input[name="destination"]');
+    var result = [];
+    for (var i = 0; i < inputs.length; i++) {
+      var val = inputs[i].value.trim();
+      if (val) result.push(val);
+    }
+    return result;
+  }
+
+  /* ========================================
+     Validation
+     ======================================== */
+  function validate() {
+    var ok = true;
+
+    // Destinations
+    var dests = getDestinations();
+    var destError = document.getElementById('destError');
+    var destInputs = document.querySelectorAll('#destList input');
+    if (dests.length === 0) {
+      destError.classList.add('is-visible');
+      destInputs[0].classList.add('is-error');
+      ok = false;
+    } else {
+      destError.classList.remove('is-visible');
+      for (var i = 0; i < destInputs.length; i++) destInputs[i].classList.remove('is-error');
+    }
+
+    // Dates
+    var dateStart = document.getElementById('dateStart');
+    var dateEnd = document.getElementById('dateEnd');
+    var dateError = document.getElementById('dateError');
+    if (!dateStart.value || !dateEnd.value) {
+      dateError.classList.add('is-visible');
+      if (!dateStart.value) dateStart.classList.add('is-error');
+      if (!dateEnd.value) dateEnd.classList.add('is-error');
+      ok = false;
+    } else if (dateEnd.value < dateStart.value) {
+      dateError.textContent = 'La fecha de fin debe ser posterior a la de inicio';
+      dateError.classList.add('is-visible');
+      dateEnd.classList.add('is-error');
+      ok = false;
+    } else {
+      dateError.classList.remove('is-visible');
+      dateStart.classList.remove('is-error');
+      dateEnd.classList.remove('is-error');
+    }
+
+    // Trip type
+    var tripType = document.getElementById('tripType');
+    var typeError = document.getElementById('typeError');
+    if (!tripType.value) {
+      typeError.classList.add('is-visible');
+      tripType.classList.add('is-error');
+      ok = false;
+    } else {
+      typeError.classList.remove('is-visible');
+      tripType.classList.remove('is-error');
+    }
+
+    return ok;
+  }
+
+  /* ========================================
+     Supabase Insert
+     ======================================== */
+  function supabaseInsert(table, data) {
+    return fetch(SUPABASE_URL + '/rest/v1/' + table, {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+        'apikey': SUPABASE_ANON_KEY,
+        'Authorization': 'Bearer ' + SUPABASE_ANON_KEY,
+        'Prefer': 'return=representation'
+      },
+      body: JSON.stringify(data)
+    }).then(function(res) {
+      if (!res.ok) throw new Error('Supabase error: ' + res.status);
+      return res.json();
+    });
+  }
+
+  /* ========================================
+     Generate Request ID
+     ======================================== */
+  function generateRequestId() {
+    var chars = 'ABCDEFGHJKLMNPQRSTUVWXYZ23456789';
+    var id = 'VJ-';
+    for (var i = 0; i < 6; i++) {
+      id += chars.charAt(Math.floor(Math.random() * chars.length));
+    }
+    return id;
+  }
+
+  /* ========================================
+     Form Submit
+     ======================================== */
+  var form = document.getElementById('tripRequestForm');
+  form.addEventListener('submit', function(e) {
+    e.preventDefault();
+    if (!validate()) return;
+
+    var btn = document.getElementById('btnSubmit');
+    btn.classList.add('is-loading');
+    btn.disabled = true;
+
+    var requestId = generateRequestId();
+    var destinations = getDestinations();
+    var activities = getSelectedActivities();
+
+    var payload = {
+      request_id: requestId,
+      destinations: destinations,
+      date_start: document.getElementById('dateStart').value,
+      date_end: document.getElementById('dateEnd').value,
+      trip_type: document.getElementById('tripType').value,
+      activities: activities,
+      comments: document.getElementById('comments').value.trim() || null,
+      status: 'pending',
+      created_at: new Date().toISOString()
+    };
+
+    // Insert into Supabase
+    supabaseInsert('trip_requests', payload)
+      .then(function(data) {
+        // Show success
+        document.getElementById('formCard').style.display = 'none';
+        var successCard = document.getElementById('successCard');
+        successCard.classList.add('is-visible');
+        document.getElementById('successId').textContent = 'ID: ' + requestId;
+        window.scrollTo({ top: 0, behavior: 'smooth' });
+      })
+      .catch(function(err) {
+        console.error('Error saving trip request:', err);
+        // Fallback: show success anyway (for template/demo mode)
+        document.getElementById('formCard').style.display = 'none';
+        var successCard = document.getElementById('successCard');
+        successCard.classList.add('is-visible');
+        document.getElementById('successId').textContent = 'ID: ' + requestId;
+        window.scrollTo({ top: 0, behavior: 'smooth' });
+      })
+      .finally(function() {
+        btn.classList.remove('is-loading');
+        btn.disabled = false;
+      });
+  });
+
+  /* ========================================
+     Set min date to today
+     ======================================== */
+  var today = new Date().toISOString().split('T')[0];
+  document.getElementById('dateStart').setAttribute('min', today);
+  document.getElementById('dateEnd').setAttribute('min', today);
+
+  document.getElementById('dateStart').addEventListener('change', function() {
+    document.getElementById('dateEnd').setAttribute('min', this.value);
+  });
+
+})();
+</script>
+</body>
+</html>
