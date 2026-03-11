@@ -308,6 +308,45 @@ a.submenu__item:hover{background:var(--overlay)}
     }
     return '<span class="badge badge--planeacion">En planeación</span>';
   }
+  function getBocetoBadge(trip) {
+    const status = trip.tripstatus;
+    if (status === 'boceto_pre') {
+      return 'En edición';
+    }
+    if (status === 'boceto_post' || status === 'reservado' || status === 'completado') {
+      return '✓ Confirmado';
+    }
+    return 'Pendiente';
+  }
+
+  async function checkItinerarioStatus(trip) {
+    // Solo revisar si está en estado "reservado"
+    if (trip.tripstatus !== 'reservado') return;
+
+    try {
+      const reservations = await supabase.getReservations(trip.tripid);
+      const allConfirmed = reservations.every(r => r.reservationstatus === 'confirmado');
+
+      if (allConfirmed && reservations.length > 0) {
+        // Desbloquear itinerario
+        const link = document.getElementById(`itinerarioLink-${trip.tripid}`);
+        const badge = document.getElementById(`itinerarioBadge-${trip.tripid}`);
+
+        if (link && badge) {
+          link.classList.remove('submenu__item--locked');
+          link.style.pointerEvents = 'auto';
+          link.target = '_blank';
+          link.rel = 'noopener noreferrer';
+
+          badge.classList.remove('submenu__badge--locked');
+          badge.classList.add('submenu__badge--completed');
+          badge.textContent = '✓ Listo';
+        }
+      }
+    } catch (error) {
+      console.error('Error checking itinerario status:', error);
+    }
+  }
 
   function formatPrice(mxn) {
     if (mxn == null) return '';
@@ -319,11 +358,15 @@ a.submenu__item:hover{background:var(--overlay)}
     if (!grid) return;
 
     const card = document.createElement('article');
-    card.className = 'card';
+       card.className = 'card';
     card.style.cursor = 'pointer';
-    card.onclick = function () {
-      // por ahora no hacemos nada especial al click
+    card.onclick = function (event) {
+      // No expandir si se hace click en un link del submenú
+      if (event.target.closest('.submenu__item')) return;
+      // Toggle expansión
+      card.classList.toggle('is-expanded');
     };
+
 
     const fechas = formatDateRange(trip.datestart, trip.dateend);
     const destino = trip.destination || 'Viaje';
@@ -331,7 +374,7 @@ a.submenu__item:hover{background:var(--overlay)}
     const tipo = trip.triptype || '';
     const priceMXN = formatPrice(trip.total_estimate_mxn);
 
-    card.innerHTML = `
+       card.innerHTML = `
       <div class="card__body" style="padding:16px 18px 18px 18px">
         <div style="display:flex;justify-content:space-between;align-items:flex-start;gap:8px;">
           <div>
@@ -356,6 +399,42 @@ a.submenu__item:hover{background:var(--overlay)}
           </div>
         </div>
       </div>
+
+      <!-- Submenú expandible -->
+      <div class="card__submenu">
+        <div class="submenu">
+          <!-- Boceto -->
+          <a href="boceto.html?slug=${trip.slug}" target="_blank" rel="noopener noreferrer" 
+             class="submenu__item" onclick="event.stopPropagation()">
+            <svg viewBox="0 0 18 18" fill="none" aria-hidden="true">
+              <path d="M2 13.5V16h2.5L13.06 7.44l-2.5-2.5L2 13.5z" stroke="currentColor" stroke-width="1.3"/>
+            </svg>
+            <span class="submenu__name">Boceto</span>
+            <span class="submenu__badge submenu__badge--active" id="bocetoBadge-${trip.tripid}">${getBocetoBadge(trip)}</span>
+          </a>
+          
+          <!-- Panel de Reservas -->
+          <a href="panel-reservas.html?trip=${trip.tripid}" target="_blank" rel="noopener noreferrer" 
+             class="submenu__item" onclick="event.stopPropagation()">
+            <svg viewBox="0 0 18 18" fill="none" aria-hidden="true">
+              <rect x="2" y="2" width="14" height="14" rx="2" stroke="currentColor" stroke-width="1.3"/>
+            </svg>
+            <span class="submenu__name">Panel de Reservas</span>
+            <span class="submenu__badge submenu__badge--active" id="panelBadge-${trip.tripid}">En proceso</span>
+          </a>
+          
+          <!-- Itinerario (bloqueado) -->
+          <a href="itinerario.html?trip=${trip.tripid}" id="itinerarioLink-${trip.tripid}"
+             class="submenu__item submenu__item--locked" style="pointer-events: none;" 
+             onclick="event.stopPropagation()">
+            <svg viewBox="0 0 18 18" fill="none" aria-hidden="true">
+              <path d="M3 4l4 2v10l-4-2V4z" stroke="currentColor" stroke-width="1.3"/>
+            </svg>
+            <span class="submenu__name">Itinerario</span>
+            <span class="submenu__badge submenu__badge--locked" id="itinerarioBadge-${trip.tripid}">🔒 Bloqueado</span>
+          </a>
+        </div>
+      </div>
     `;
 
     // Insertar la tarjeta antes del CTA "Solicitar viaje"
@@ -364,7 +443,10 @@ a.submenu__item:hover{background:var(--overlay)}
       grid.insertBefore(card, cta);
     } else {
       grid.appendChild(card);
-    }
+        }
+        // Verificar estado de itinerario
+    checkItinerarioStatus(trip);
+
   }
 
   async function loadTrips() {
