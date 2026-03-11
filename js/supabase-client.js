@@ -53,7 +53,7 @@ class SupabaseClient {
     return this.query('/trips', {
       params: { 
         select: '*',
-        order: 'startdate.desc'
+        order: 'start_date.desc'
       }
     });
   }
