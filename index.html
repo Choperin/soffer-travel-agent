@@ -1,90 +1,411 @@
 <!DOCTYPE html>
 <html lang="es" data-theme="light">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Viajes Soffer - Familia Soffer</title>
-    <meta name="description" content="Portal de viajes premium para la Familia Soffer. Tu agente de viajes de confianza.">
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300..700&family=Playfair+Display:ital,wght@0,400;0,600;0,700;1,400;1,600&display=swap" rel="stylesheet">
-    <link rel="stylesheet" href="css/shared-styles.css">
-    <style>
-        /* Estilos específicos del portal - ver archivo adjunto template-portal-viajes-5.html */
-    </style>
+<meta name="generator" content="Perplexity Computer">
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Viajes Soffer — Familia Soffer</title>
+<meta name="description" content="Portal de viajes premium para la Familia Soffer. Tu agente de viajes de confianza.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300..700&family=Playfair+Display:ital,wght@0,400;0,600;0,700;1,400;1,600&display=swap" rel="stylesheet">
+<style>
+:root{--primary:#20808D;--primary-hover:#1A6B76;--primary-light:#4FBCC9;--accent-gold:#C9A84C;--bg:#FCFAF6;--surface:#FFFFFF;--text:#1A2B2E;--text-secondary:#4A6368;--text-muted:#7A9499;--border:#E2DDD4;--border-light:#F0ECE4;--badge-bg:rgba(32,128,141,.08);--badge-gold-bg:rgba(201,168,76,.10);--badge-green-bg:rgba(22,163,74,.08);--badge-gray-bg:rgba(122,148,153,.10);--card-shadow:rgba(26,43,46,.06);--card-shadow-hover:rgba(26,43,46,.12);--submenu-bg:#F8F6F1;--overlay:rgba(26,43,46,.04);--font-heading:'Playfair Display',Georgia,serif;--font-body:'Inter',system-ui,-apple-system,sans-serif;--max-width:1200px;--radius:12px;--radius-sm:8px;--transition:180ms ease}
+[data-theme="dark"]{--bg:#0F1F22;--surface:#1A2B2E;--text:#E8E2D8;--text-secondary:#A8BFC3;--text-muted:#7A9499;--border:#2A3D41;--border-light:#1F3236;--badge-bg:rgba(79,188,201,.12);--badge-gold-bg:rgba(201,168,76,.14);--badge-green-bg:rgba(22,163,74,.12);--badge-gray-bg:rgba(122,148,153,.14);--card-shadow:rgba(0,0,0,.20);--card-shadow-hover:rgba(0,0,0,.32);--submenu-bg:#15282B;--overlay:rgba(0,0,0,.12)}
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+html{-webkit-text-size-adjust:100%;scroll-behavior:smooth}
+body{font-family:var(--font-body);font-size:15px;line-height:1.6;color:var(--text);background-color:var(--bg);-webkit-font-smoothing:antialiased;-moz-osx-font-smoothing:grayscale;transition:background-color var(--transition),color var(--transition);min-height:100vh;display:flex;flex-direction:column}
+a{color:inherit;text-decoration:none}
+button{border:none;background:none;cursor:pointer;font-family:inherit;color:inherit}
+.nav{position:sticky;top:0;z-index:100;background:var(--surface);border-bottom:1px solid var(--border-light);transition:background-color var(--transition),border-color var(--transition)}
+.nav__inner{max-width:var(--max-width);margin:0 auto;padding:0 24px;height:60px;display:flex;align-items:center;justify-content:space-between}
+.nav__logo{font-family:var(--font-heading);font-size:20px;font-weight:600;color:var(--primary);letter-spacing:-.01em;display:flex;align-items:center;gap:10px}
+.nav__logo-icon{width:28px;height:28px;flex-shrink:0}
+.theme-toggle{width:40px;height:40px;display:flex;align-items:center;justify-content:center;border-radius:50%;transition:background-color var(--transition)}
+.theme-toggle:hover{background:var(--overlay)}
+.theme-toggle svg{width:20px;height:20px;color:var(--text-secondary);transition:color var(--transition)}
+.theme-toggle .icon-moon{display:none}
+[data-theme="dark"] .theme-toggle .icon-sun{display:none}
+[data-theme="dark"] .theme-toggle .icon-moon{display:block}
+.hero{text-align:center;padding:56px 24px 40px}
+.hero__title{font-family:var(--font-heading);font-size:clamp(28px,5vw,42px);font-weight:700;color:var(--text);letter-spacing:-.02em;line-height:1.2;margin-bottom:12px;transition:color var(--transition)}
+.hero__subtitle{font-size:15px;font-weight:400;color:var(--text-secondary);letter-spacing:.02em;transition:color var(--transition)}
+.hero__divider{display:flex;justify-content:center;margin-top:28px}
+.hero__divider svg{color:var(--accent-gold);opacity:.7}
+.grid-section{flex:1;max-width:var(--max-width);margin:0 auto;padding:0 24px 64px;width:100%}
+.grid{display:grid;grid-template-columns:1fr;gap:24px}
+.grid--centered{max-width:440px;margin:0 auto}
+@media(min-width:768px){.grid{grid-template-columns:repeat(2,1fr)}.grid--centered{max-width:440px;grid-template-columns:1fr}}
+@media(min-width:1024px){.grid{grid-template-columns:repeat(3,1fr)}.grid--centered{max-width:440px;grid-template-columns:1fr}}
+.card{background:var(--surface);border-radius:var(--radius);box-shadow:0 1px 3px var(--card-shadow),0 1px 2px var(--card-shadow);overflow:hidden;transition:box-shadow var(--transition),transform var(--transition),background-color var(--transition);cursor:pointer;border:1px solid var(--border-light)}
+.card:hover{box-shadow:0 8px 24px var(--card-shadow-hover),0 2px 6px var(--card-shadow);transform:translateY(-2px)}
+.card__image{width:100%;height:180px;background:linear-gradient(135deg,#20808D 0%,#0F1F22 100%);position:relative;display:flex;align-items:center;justify-content:center}
+.card__image-icon{width:48px;height:48px;color:rgba(255,255,255,.25)}
+.card__body{padding:20px}
+.card__destination{font-family:var(--font-heading);font-size:22px;font-weight:600;color:var(--text);line-height:1.3;margin-bottom:14px;letter-spacing:-.01em;transition:color var(--transition)}
+.card__row{display:flex;align-items:flex-start;gap:8px;margin-bottom:10px;font-size:14px;color:var(--text-secondary);line-height:1.5;transition:color var(--transition)}
+.card__row svg{width:16px;height:16px;flex-shrink:0;margin-top:2px;color:var(--text-muted);transition:color var(--transition)}
+.card__countdown{display:inline-flex;align-items:center;gap:6px;font-size:13px;font-weight:500;padding:4px 12px;border-radius:20px;margin-bottom:12px;transition:background-color var(--transition),color var(--transition)}
+.card__countdown--upcoming{background:var(--badge-bg);color:var(--primary)}
+.card__countdown--today{background:var(--badge-gold-bg);color:var(--accent-gold)}
+.card__countdown--past{background:var(--badge-gray-bg);color:var(--text-muted)}
+.badge{display:inline-flex;align-items:center;gap:5px;font-size:12px;font-weight:600;padding:4px 10px;border-radius:20px;letter-spacing:.01em;margin-bottom:14px;transition:background-color var(--transition),color var(--transition)}
+.badge svg{width:13px;height:13px;flex-shrink:0}
+.badge--confirmado{background:var(--badge-green-bg);color:#16a34a}
+.badge--en-reserva{background:var(--badge-bg);color:#20808D}
+.badge--planeacion{background:var(--badge-gold-bg);color:#C9A84C}
+.badge--completado{background:var(--badge-gray-bg);color:#7A9499}
+.card__price{border-top:1px solid var(--border-light);padding-top:14px;margin-top:4px;transition:border-color var(--transition)}
+.card__price-main{font-family:var(--font-heading);font-size:20px;font-weight:600;color:var(--text);transition:color var(--transition)}
+.card__price-secondary{font-size:13px;color:var(--text-muted);margin-top:2px;transition:color var(--transition)}
+.card__submenu{max-height:0;overflow:hidden;transition:max-height 300ms ease,opacity 200ms ease;opacity:0;border-top:0 solid var(--border-light)}
+.card.is-expanded .card__submenu{max-height:400px;opacity:1;border-top-width:1px}
+.submenu{padding:12px 20px 16px;display:flex;flex-direction:column;gap:6px;background:var(--submenu-bg);transition:background-color var(--transition)}
+.submenu__item{display:flex;align-items:center;gap:10px;padding:10px 12px;border-radius:var(--radius-sm);font-size:14px;font-weight:500;color:var(--text);transition:background-color var(--transition),color var(--transition)}
+a.submenu__item:hover{background:var(--overlay)}
+.submenu__item--locked{opacity:.55;cursor:default}
+.submenu__item svg{width:18px;height:18px;flex-shrink:0;color:var(--text-muted);transition:color var(--transition)}
+.submenu__name{flex:1}
+.submenu__badge{font-size:11px;font-weight:600;padding:2px 8px;border-radius:12px;letter-spacing:.02em}
+.submenu__badge--completed{background:var(--badge-green-bg);color:#16a34a}
+.submenu__badge--active{background:var(--badge-bg);color:var(--primary)}
+.submenu__badge--locked{background:var(--badge-gray-bg);color:var(--text-muted)}
+.footer{text-align:center;padding:32px 24px;border-top:1px solid var(--border-light);transition:border-color var(--transition)}
+.footer__text{font-size:13px;color:var(--text-muted);margin-bottom:6px;transition:color var(--transition)}
+.footer__credit{font-size:12px;color:var(--text-muted);transition:color var(--transition)}
+.footer__credit a{color:var(--text-secondary);transition:color var(--transition)}
+.footer__credit a:hover{color:var(--primary)}
+
+/* CTA Card — Solicitar Viaje */
+.card--cta{border:2px dashed var(--border);background:var(--surface);cursor:pointer;display:flex;flex-direction:column;align-items:center;justify-content:center;min-height:320px;text-align:center;transition:border-color var(--transition),background-color var(--transition),transform var(--transition),box-shadow var(--transition)}
+.card--cta:hover{border-color:var(--primary);background:var(--badge-bg);transform:translateY(-2px);box-shadow:0 8px 24px var(--card-shadow-hover)}
+.card--cta__icon{width:56px;height:56px;color:var(--primary);margin-bottom:16px;opacity:.7;transition:opacity var(--transition)}
+.card--cta:hover .card--cta__icon{opacity:1}
+.card--cta__title{font-family:var(--font-heading);font-size:22px;font-weight:600;color:var(--text);margin-bottom:8px;transition:color var(--transition)}
+.card--cta__subtitle{font-size:14px;color:var(--text-secondary);max-width:220px;line-height:1.5;transition:color var(--transition)}
+</style>
     <script src="js/config.js"></script>
+    <script src="js/supabase-client.js"></script>
 </head>
 <body>
-    <nav class="nav">
-        <div class="nav-inner">
-            <div class="nav-logo">
-                <svg class="nav-logo-icon" viewBox="0 0 28 28" fill="none" aria-hidden="true">
-                    <circle cx="14" cy="14" r="12.5" stroke="currentColor" stroke-width="1.5"/>
-                    <circle cx="14" cy="14" r="2" fill="currentColor"/>
-                    <path d="M14 4v3M14 21v3M4 14h3M21 14h3" stroke="currentColor" stroke-width="1.2" stroke-linecap="round"/>
-                </svg>
-                Viajes Soffer
-            </div>
-            <button class="theme-toggle" aria-label="Cambiar tema" onclick="toggleTheme()">
-                <svg class="icon-sun" viewBox="0 0 20 20" fill="none">
-                    <circle cx="10" cy="10" r="3.5" stroke="currentColor" stroke-width="1.5"/>
-                    <path d="M10 2.5v2M10 15.5v2M2.5 10h2M15.5 10h2" stroke="currentColor" stroke-width="1.3" stroke-linecap="round"/>
-                </svg>
-                <svg class="icon-moon" viewBox="0 0 20 20" fill="none">
-                    <path d="M17.1 12.6A7.5 7.5 0 017.4 2.9a7.5 7.5 0 109.7 9.7z" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
-                </svg>
-            </button>
+
+<nav class="nav">
+ <div class="nav__inner">
+  <div class="nav__logo">
+   <svg class="nav__logo-icon" viewBox="0 0 28 28" fill="none" aria-hidden="true">
+    <circle cx="14" cy="14" r="12.5" stroke="currentColor" stroke-width="1.5"/>
+    <circle cx="14" cy="14" r="2" fill="currentColor"/>
+    <path d="M14 4v3M14 21v3M4 14h3M21 14h3" stroke="currentColor" stroke-width="1.2" stroke-linecap="round"/>
+    <path d="M17.5 10.5L14 14l-3.5 3.5" stroke="currentColor" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round"/>
+    <path d="M10.5 10.5L14 14l3.5 3.5" stroke="currentColor" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round" opacity="0.4"/>
+   </svg>
+   Viajes Soffer
+  </div>
+  <button class="theme-toggle" aria-label="Cambiar tema" onclick="toggleTheme()">
+   <svg class="icon-sun" viewBox="0 0 20 20" fill="none">
+    <circle cx="10" cy="10" r="3.5" stroke="currentColor" stroke-width="1.5"/>
+    <path d="M10 2.5v2M10 15.5v2M2.5 10h2M15.5 10h2M4.7 4.7l1.4 1.4M13.9 13.9l1.4 1.4M15.3 4.7l-1.4 1.4M6.1 13.9l-1.4 1.4" stroke="currentColor" stroke-width="1.3" stroke-linecap="round"/>
+   </svg>
+   <svg class="icon-moon" viewBox="0 0 20 20" fill="none">
+    <path d="M17.1 12.6A7.5 7.5 0 017.4 2.9a7.5 7.5 0 109.7 9.7z" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+   </svg>
+  </button>
+ </div>
+</nav>
+
+<section class="hero">
+ <h1 class="hero__title">Nuestros Viajes</h1>
+ <p class="hero__subtitle">Familia Soffer — Agente de Viajes Premium</p>
+ <div class="hero__divider">
+  <svg width="120" height="16" viewBox="0 0 120 16" fill="none" aria-hidden="true">
+   <path d="M0 8h48" stroke="currentColor" stroke-width="1" stroke-linecap="round"/>
+   <path d="M72 8h48" stroke="currentColor" stroke-width="1" stroke-linecap="round"/>
+   <path d="M60 1l4.5 7-4.5 7-4.5-7L60 1z" stroke="currentColor" stroke-width="1.2" fill="none"/>
+   <circle cx="60" cy="8" r="2" fill="currentColor" opacity="0.5"/>
+  </svg>
+ </div>
+</section>
+
+<main class="grid-section">
+ <div class="grid" id="tripGrid">
+  <!-- CTA: Solicitar Viaje -->
+  <a href="{{SOLICITUD_URL}}" class="card card--cta" style="text-decoration:none">
+   <svg class="card--cta__icon" viewBox="0 0 56 56" fill="none" aria-hidden="true">
+    <circle cx="28" cy="28" r="24" stroke="currentColor" stroke-width="1.8" stroke-dasharray="4 3"/>
+    <path d="M28 18v20M18 28h20" stroke="currentColor" stroke-width="2.2" stroke-linecap="round"/>
+   </svg>
+   <div class="card--cta__title">Solicitar Viaje</div>
+   <div class="card--cta__subtitle">Planifica tu próximo destino con tu agente premium</div>
+  </a>
+
+  <!-- {TRIP_CARDS} — Una <article class="card"> por viaje activo.
+  Placeholders: {DESTINO} {FECHAS} {VIAJEROS} {PRECIO_MXN} {PRECIO_USD}
+  {URL_BOCETO} {URL_PANEL} {URL_ITINERARIO}
+  {BOCETO_BADGE_CSS} {BOCETO_BADGE_TEXT} {PANEL_BADGE_CSS} {PANEL_BADGE_TEXT}
+  JS: {{RESERVATIONS_DATA}} {{TRIP_YEAR}} {{TRIP_MONTH_0}} {{TRIP_DAY}} {{TRIP_END_DAY}}
+  Badge: Confirmado/En Reserva/En Planeación/Completado -->
+ </div>
+</main>
+
+<footer class="footer">
+ <p class="footer__text">Tu Agente de Viajes Premium — Familia Soffer</p>
+ <p class="footer__credit"><a href="https://www.perplexity.ai/computer" target="_blank" rel="noopener noreferrer">Created with Perplexity Computer</a></p>
+</footer>
+
+<script>
+) ═══
+         {{RESERVATIONS_DATA}} — var reservationsData = [{id:'vuelo',status:'confirmado'}, ...];
+         {{TRIP_YEAR}}         — Año del viaje (ej: 2026)
+         {{TRIP_MONTH_0}}      — Mes base-0 (ej: 4 para mayo)
+         {{TRIP_DAY}}          — Día de inicio
+         {{TRIP_END_DAY}}      — Día de fin
+         ═══════════════════════════ -->
+
+    <!-- {{TRIP_CARDS}} -->
+    <!-- Ejemplo de estructura de una tarjeta:
+    <article class="card" id="card-{{TRIP_ID}}" onclick="toggleSubmenu(this, event)">
+      <div class="card__image">
+        <svg class="card__image-icon" viewBox="0 0 48 48" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+          <path d="M24 4C16.268 4 10 10.268 10 18c0 10.5 14 26 14 26s14-15.5 14-26c0-7.732-6.268-14-14-14z" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+          <circle cx="24" cy="18" r="5" stroke="currentColor" stroke-width="2"/>
+        </svg>
+      </div>
+      <div class="card__body">
+        <h2 class="card__destination">{{DESTINO}}</h2>
+        <div class="card__row">
+          <svg viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+            <rect x="1.5" y="2.5" width="13" height="12" rx="1.5" stroke="currentColor" stroke-width="1.3"/>
+            <path d="M1.5 6.5h13" stroke="currentColor" stroke-width="1.3"/>
+            <path d="M5 1v3M11 1v3" stroke="currentColor" stroke-width="1.3" stroke-linecap="round"/>
+          </svg>
+          <span>{{FECHAS}}</span>
         </div>
-    </nav>
-
-    <section class="hero">
-        <h1 class="hero-title">Nuestros Viajes</h1>
-        <p class="hero-subtitle">Familia Soffer · Agente de Viajes Premium</p>
-    </section>
-
-    <main class="grid-section">
-        <div class="grid" id="tripGrid">
-            <!-- CTA Solicitar Viaje -->
-            <a href="https://choperin.github.io/soffer-travel-agent/solicitud.html" class="card card--cta" style="text-decoration:none">
-                <svg class="card--cta-icon" viewBox="0 0 56 56" fill="none" aria-hidden="true">
-                    <circle cx="28" cy="28" r="24" stroke="currentColor" stroke-width="1.8" stroke-dasharray="4 3"/>
-                    <path d="M28 18v20M18 28h20" stroke="currentColor" stroke-width="2.2" stroke-linecap="round"/>
-                </svg>
-                <div class="card--cta-title">Solicitar Viaje</div>
-                <div class="card--cta-subtitle">Planifica tu próximo destino con tu agente premium</div>
-            </a>
+        <div class="card__countdown" id="countdown-{{TRIP_ID}}"></div>
+        <div class="card__row">
+          <svg viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+            <circle cx="6" cy="5" r="2.5" stroke="currentColor" stroke-width="1.2"/>
+            <path d="M1.5 14.5c0-2.5 2-4.5 4.5-4.5s4.5 2 4.5 4.5" stroke="currentColor" stroke-width="1.2" stroke-linecap="round"/>
+            <circle cx="11.5" cy="5.5" r="2" stroke="currentColor" stroke-width="1.1"/>
+            <path d="M11.5 10c1.8 0 3.5 1.3 3.5 3.5" stroke="currentColor" stroke-width="1.1" stroke-linecap="round"/>
+          </svg>
+          <span>{{VIAJEROS}}</span>
         </div>
-    </main>
+        <div id="statusBadge-{{TRIP_ID}}"></div>
+        <div class="card__price">
+          <div class="card__price-main">{{PRECIO_MXN}}</div>
+          <div class="card__price-secondary">{{PRECIO_USD}}</div>
+        </div>
+      </div>
+      <div class="card__submenu">
+        <div class="submenu">
+          <a href="{{URL_BOCETO}}" target="_blank" rel="noopener noreferrer" class="submenu__item" onclick="event.stopPropagation()">
+            <svg viewBox="0 0 18 18" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+              <path d="M2 13.5V16h2.5L13.06 7.44l-2.5-2.5L2 13.5z" stroke="currentColor" stroke-width="1.3" stroke-linecap="round" stroke-linejoin="round"/>
+              <path d="M11.06 4.44l2.5 2.5" stroke="currentColor" stroke-width="1.3" stroke-linecap="round"/>
+              <path d="M14.56 1.94a1.5 1.5 0 012.12 2.12l-1 1-2.5-2.5 1.38-1.62z" fill="currentColor" opacity="0.15" stroke="currentColor" stroke-width="0.8"/>
+            </svg>
+            <span class="submenu__name">Boceto</span>
+            <span class="submenu__badge {{BOCETO_BADGE_CSS}}">{{BOCETO_BADGE_TEXT}}</span>
+          </a>
+          <a href="{{URL_PANEL}}" target="_blank" rel="noopener noreferrer" class="submenu__item" onclick="event.stopPropagation()">
+            <svg viewBox="0 0 18 18" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+              <rect x="2" y="2" width="14" height="14" rx="2" stroke="currentColor" stroke-width="1.3"/>
+              <path d="M2 7h14" stroke="currentColor" stroke-width="1.3"/>
+              <path d="M6 2v5M12 2v5" stroke="currentColor" stroke-width="1.2" stroke-linecap="round"/>
+              <path d="M5.5 10.5l2 2 4-4" stroke="currentColor" stroke-width="1.3" stroke-linecap="round" stroke-linejoin="round"/>
+            </svg>
+            <span class="submenu__name">Panel de Reservas</span>
+            <span class="submenu__badge {{PANEL_BADGE_CSS}}">{{PANEL_BADGE_TEXT}}</span>
+          </a>
+          <a id="itinerarioLink" data-url="{{URL_ITINERARIO}}" class="submenu__item submenu__item--locked" onclick="event.stopPropagation()" style="pointer-events:none;text-decoration:none;color:inherit">
+            <svg viewBox="0 0 18 18" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+              <path d="M3 4l4 2v10l-4-2V4z" stroke="currentColor" stroke-width="1.3" stroke-linejoin="round"/>
+              <path d="M7 6l4-2v10l-4 2V6z" stroke="currentColor" stroke-width="1.3" stroke-linejoin="round"/>
+              <path d="M11 4l4 2v10l-4-2V4z" stroke="currentColor" stroke-width="1.3" stroke-linejoin="round"/>
+            </svg>
+            <span class="submenu__name">Itinerario</span>
+            <span id="itinerarioBadge" class="submenu__badge submenu__badge--locked">Pendiente</span>
+          </a>
+        </div>
+      </div>
+    </article>
+    Fin ejemplo -->
+  </div>
+</main>
 
-    <footer class="footer">
-        <p class="footer-text">Tu Agente de Viajes Premium · Familia Soffer</p>
-        <p class="footer-credit"><a href="https://www.perplexity.ai/computer" target="_blank" rel="noopener noreferrer">Created with Perplexity Computer</a></p>
-    </footer>
+<!-- ========================================
+     Footer
+     ======================================== -->
+<footer class="footer">
+  <p class="footer__text">Tu Agente de Viajes Premium — Familia Soffer</p>
+  <p class="footer__credit">
+    <a href="https://www.perplexity.ai/computer" target="_blank" rel="noopener noreferrer">Created with Perplexity Computer</a>
+  </p>
+</footer>
 
-    <script src="js/supabase-client.js"></script>
-    <script>
-        // Cargar viajes desde Supabase y renderizar
-        async function loadTrips() {
-            try {
-                const trips = await supabase.getTrips();
-                console.log('Viajes cargados:', trips);
-                // Por ahora solo mostramos el CTA
-                // En Fase 3 renderizaremos las tarjetas dinámicamente
-            } catch (error) {
-                console.error('Error cargando viajes:', error);
-            }
-        }
+<!-- ========================================
+     JavaScript
+     ======================================== -->
+<script>
+(function() {
+  'use strict';
 
-        // Dark mode toggle
-        function toggleTheme() {
-            const html = document.documentElement;
-            const current = html.getAttribute('data-theme');
-            const next = current === 'dark' ? 'light' : 'dark';
-            html.setAttribute('data-theme', next);
-        }
+  /* ---- Reservation Data ---- */
+  /* {{RESERVATIONS_DATA}} — Array de objetos {id, status} para CADA viaje */
 
-        // Cargar viajes al iniciar
-        loadTrips();
-    </script>
+  const TRIP_DATE = new Date({{TRIP_YEAR}}, {{TRIP_MONTH_0}}, {{TRIP_DAY}}); // Mes base-0 // April 8, 2026
+
+  /* ---- Countdown ---- */
+  function updateCountdown() {
+    var el = document.getElementById('countdown');
+    if (!el) return;
+    var now = new Date();
+    var today = new Date(now.getFullYear(), now.getMonth(), now.getDate());
+    var diff = Math.floor((TRIP_DATE - today) / (1000 * 60 * 60 * 24));
+
+    if (diff > 0) {
+      el.className = 'card__countdown card__countdown--upcoming';
+      el.innerHTML = svgClock() + diff + (diff === 1 ? ' día' : ' días');
+    } else if (diff === 0) {
+      el.className = 'card__countdown card__countdown--today';
+      el.innerHTML = svgCheck() + 'Hoy';
+    } else {
+      el.className = 'card__countdown card__countdown--past';
+      el.innerHTML = svgCheck() + 'Completado';
+    }
+  }
+
+  function svgClock() {
+    return '<svg width="14" height="14" viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg" style="flex-shrink:0"><circle cx="8" cy="8" r="6.5" stroke="currentColor" stroke-width="1.3"/><path d="M8 4.5V8l3 1.5" stroke="currentColor" stroke-width="1.3" stroke-linecap="round" stroke-linejoin="round"/></svg>';
+  }
+
+  function svgCheck() {
+    return '<svg width="14" height="14" viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg" style="flex-shrink:0"><path d="M3.5 8.5l3 3 6-6" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>';
+  }
+
+  function svgSpinner() {
+    return '<svg width="13" height="13" viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg" style="flex-shrink:0;animation:spin 1.2s linear infinite"><circle cx="8" cy="8" r="6" stroke="currentColor" stroke-width="1.5" stroke-dasharray="28 10" stroke-linecap="round"/></svg>';
+  }
+
+  function svgClockBadge() {
+    return '<svg width="13" height="13" viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg" style="flex-shrink:0"><circle cx="8" cy="8" r="6.5" stroke="currentColor" stroke-width="1.3"/><path d="M8 4.5V8l2.5 1.5" stroke="currentColor" stroke-width="1.2" stroke-linecap="round" stroke-linejoin="round"/></svg>';
+  }
+
+  /* ---- Status Badge (S42d Rule) ---- */
+  function updateStatusBadge() {
+    var el = document.getElementById('statusBadge');
+    if (!el) return;
+
+    var now = new Date();
+    var today = new Date(now.getFullYear(), now.getMonth(), now.getDate());
+    // Trip end date: April 11, 2026
+    var tripEnd = new Date({{TRIP_YEAR}}, {{TRIP_MONTH_0}}, {{TRIP_END_DAY}});
+
+    // Check if trip is past
+    if (today > tripEnd) {
+      el.innerHTML = '<span class="badge badge--completado">' + svgCheck() + 'Completado</span>';
+      return;
+    }
+
+    // Check reservations
+    if (!reservationsData || reservationsData.length === 0) {
+      el.innerHTML = '<span class="badge badge--planeacion">' + svgClockBadge() + 'En Planeación</span>';
+      return;
+    }
+
+    var allConfirmed = reservationsData.every(function(r) { return r.status === 'confirmado'; });
+
+    if (allConfirmed) {
+      el.innerHTML = '<span class="badge badge--confirmado">' + svgCheck() + 'Confirmado</span>';
+    } else {
+      el.innerHTML = '<span class="badge badge--en-reserva">' + svgSpinner() + 'En Reserva</span>';
+    }
+  }
+
+  /* ---- Dark Mode Toggle ---- */
+  window.toggleTheme = function() {
+    var html = document.documentElement;
+    var current = html.getAttribute('data-theme');
+    var next = current === 'dark' ? 'light' : 'dark';
+    html.setAttribute('data-theme', next);
+    // Theme persists for session only (sandboxed)
+  };
+
+  // Restore saved theme
+  (function() {
+    try {
+      if (window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches) {
+        document.documentElement.setAttribute('data-theme', 'dark');
+      }
+    } catch(e) {}
+  })();
+
+  /* ---- Card Submenu Toggle ---- */
+  window.toggleSubmenu = function(card, event) {
+    // Don't toggle if clicking a link inside submenu
+    if (event.target.closest('.submenu__item')) return;
+    card.classList.toggle('is-expanded');
+  };
+
+  /* ---- Itinerario Link — unlock when all reservations confirmed ---- */
+  function updateItinerarioLink() {
+    var link = document.getElementById('itinerarioLink');
+    var badge = document.getElementById('itinerarioBadge');
+    if (!link || !badge) return;
+
+    var url = link.getAttribute('data-url');
+    var hasUrl = url && url !== '' && url.indexOf('{{') === -1;
+
+    // Check if all reservations are confirmed
+    var allConfirmed = reservationsData 
+      && reservationsData.length > 0 
+      && reservationsData.every(function(r) { return r.status === 'confirmado'; });
+
+    if (allConfirmed && hasUrl) {
+      // Unlock: make clickable
+      link.href = url;
+      link.target = '_blank';
+      link.rel = 'noopener noreferrer';
+      link.style.pointerEvents = 'auto';
+      link.classList.remove('submenu__item--locked');
+      badge.className = 'submenu__badge submenu__badge--completed';
+      badge.textContent = 'Listo';
+    } else if (allConfirmed && !hasUrl) {
+      // Reservations confirmed but itinerary not yet generated
+      link.style.pointerEvents = 'none';
+      link.classList.add('submenu__item--locked');
+      badge.className = 'submenu__badge submenu__badge--active';
+      badge.innerHTML = svgSpinner() + ' Generando';
+    } else if (reservationsData && reservationsData.length > 0) {
+      // Some reservations in progress
+      link.style.pointerEvents = 'none';
+      link.classList.add('submenu__item--locked');
+      badge.className = 'submenu__badge submenu__badge--locked';
+      badge.textContent = 'En Reserva';
+    } else {
+      // No reservations yet
+      link.style.pointerEvents = 'none';
+      link.classList.add('submenu__item--locked');
+      badge.className = 'submenu__badge submenu__badge--locked';
+      badge.textContent = 'Pendiente';
+    }
+  }
+
+  /* ---- Init ---- */
+  updateCountdown();
+  updateStatusBadge();
+  updateItinerarioLink();
+
+  // Update countdown every minute
+  setInterval(updateCountdown, 60000);
+
+  /* ---- Spinner animation keyframes ---- */
+  var style = document.createElement('style');
+  style.textContent = '@keyframes spin{from{transform:rotate(0deg)}to{transform:rotate(360deg)}}';
+  document.head.appendChild(style);
+
+})();
+
+</script>
 </body>
 </html>
