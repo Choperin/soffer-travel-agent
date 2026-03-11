@@ -48,15 +48,16 @@ class SupabaseClient {
     }
   }
 
-   // Obtener todos los viajes
-  async getTrips() {
-    return this.query('/trips', {
-      params: { 
-        select: '*',
-        limit: 5
-      }
-    });
-  }
+  // Obtener todos los viajes
+async getTrips() {
+  return this.query('/trips', {
+    params: { 
+      select: '*',
+      order: 'datestart.asc'
+    }
+  });
+}
+
 
 
   // Obtener un viaje por slug
