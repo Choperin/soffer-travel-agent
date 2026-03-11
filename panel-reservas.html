@@ -1,0 +1,455 @@
+<!DOCTYPE html>
+<html lang="es" data-theme="light">
+<head>
+<meta name="generator" content="Perplexity Computer">
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Panel de Reservas — {{DESTINO}} · Familia Soffer</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300..700&family=Playfair+Display:ital,wght@0,400;0,600;0,700;1,400;1,600&display=swap" rel="stylesheet">
+<style>
+:root{--s-bg:#FCFAF6;--s-surface:#fff;--s-border:#e5e0d8;--s-text:#13343B;--s-text-secondary:#5a6b6e;--s-text-body:#5a6b6e;--s-text-muted:#5a6b6e;--s-text-faint:#9AABAE;--s-primary:#20808D;--s-primary-hover:#1a6b76;--s-primary-faint:rgba(32,128,141,.1);--s-accent:#d4a574;--s-dark:#13343B;--s-bg-alt:#F7F4EE;--s-radius-sm:6px;--s-radius-md:12px;--s-radius-lg:20px;--s-shadow:0 2px 8px rgba(19,52,59,.08);--s-font-display:'Playfair Display',Georgia,serif;--s-font-body:'Inter',system-ui,sans-serif}
+[data-theme="dark"]{--s-bg:#0F1F22;--s-bg-alt:#152A2E;--s-surface:#1A3338;--s-border:#2A4A50;--s-text:#E8E4DC;--s-text-body:#C4D0D2;--s-text-muted:#9AABAE;--s-text-faint:#5A6B6E;--s-primary:#4FBCC9;--s-primary-hover:#3AA8B5;--s-primary-faint:rgba(79,188,201,.15);--s-dark:#E8E4DC}
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+body{font-family:var(--s-font-body);background:var(--s-bg);color:var(--s-text);font-size:15px;line-height:1.6;-webkit-font-smoothing:antialiased}
+.nav{position:sticky;top:0;z-index:100;background:rgba(252,250,246,.88);backdrop-filter:blur(14px);-webkit-backdrop-filter:blur(14px);border-bottom:1px solid var(--s-border);padding:10px 20px;transition:box-shadow .3s}
+[data-theme="dark"] .nav{background:rgba(15,31,34,.88)}
+.nav--scrolled{box-shadow:0 4px 20px rgba(0,0,0,.08)}
+.nav-inner{max-width:960px;margin:0 auto;display:flex;align-items:center;justify-content:space-between;gap:12px}
+.nav-brand{font-family:var(--s-font-display);font-size:14px;font-weight:600;color:var(--s-text);letter-spacing:.02em}
+.nav-right{display:flex;align-items:center;gap:8px}
+.theme-toggle{padding:8px;color:var(--s-text-muted);border-radius:6px;cursor:pointer;transition:all .2s;background:none;border:none}
+.theme-toggle:hover{color:var(--s-primary);background:var(--s-primary-faint)}
+.hero{background:var(--s-dark);color:#fff;padding:48px 20px 40px}
+[data-theme="dark"] .hero{background:#1A3338;border-bottom:1px solid #2A4A50}
+.hero-inner{max-width:960px;margin:0 auto}
+.hero-eyebrow{font-family:var(--s-font-body);font-size:11px;font-weight:500;text-transform:uppercase;letter-spacing:.2em;color:rgba(255,255,255,.5);margin-bottom:6px}
+.hero h1{font-family:var(--s-font-display);font-size:clamp(1.8rem,.8rem + 2.5vw,2.8rem);font-weight:400;font-style:italic;line-height:1.1;margin-bottom:12px}
+.hero-meta{display:flex;flex-wrap:wrap;gap:8px}
+.hero-tag{padding:5px 12px;background:rgba(255,255,255,.1);backdrop-filter:blur(8px);border-radius:999px;font-size:11px;font-weight:500;color:rgba(255,255,255,.8)}
+.progress{max-width:960px;margin:-20px auto 0;padding:0 20px;position:relative;z-index:2}
+.progress-box{background:var(--s-surface);border:1px solid var(--s-border);border-radius:var(--s-radius-md);padding:16px 20px}
+.progress-text{font-size:13px;font-weight:600;color:var(--s-text);margin-bottom:10px}
+.progress-track{display:flex;gap:3px;height:8px;border-radius:999px;overflow:hidden}
+.progress-seg{flex:1;border-radius:999px;transition:background .3s}
+.progress-seg--pendiente{background:var(--s-border);opacity:.5}
+.progress-seg--proceso{background:#D4A017}
+.progress-seg--confirmado{background:#2E8B57}
+.progress-seg--error{background:#C43535}
+.progress-legend{display:flex;gap:16px;margin-top:8px;flex-wrap:wrap}
+.progress-legend span{font-size:10px;color:var(--s-text-muted);display:flex;align-items:center;gap:4px}
+.progress-legend span::before{content:'';width:8px;height:8px;border-radius:50%}
+.legend-pendiente::before{background:var(--s-border);opacity:.5}
+.legend-proceso::before{background:#D4A017}
+.legend-confirmado::before{background:#2E8B57}
+.legend-error::before{background:#C43535}
+.gen-itinerary{max-width:960px;margin:16px auto 0;padding:0 20px;position:relative;z-index:2}
+.gen-itinerary-box{background:var(--s-surface);border:1px solid var(--s-border);border-radius:var(--s-radius-md);padding:14px 20px;display:flex;align-items:center;justify-content:space-between;gap:12px}
+.gen-itinerary-text{display:flex;flex-direction:column;gap:2px}
+.gen-itinerary-label{font-size:13px;font-weight:600;color:var(--s-text)}
+.gen-itinerary-desc{font-size:11px;color:var(--s-text-muted)}
+.gen-itinerary-btn{display:inline-flex;align-items:center;gap:6px;padding:8px 18px;background:#20808D;color:#fff;border:none;border-radius:8px;font-family:var(--s-font-body);font-size:12px;font-weight:600;letter-spacing:.02em;cursor:pointer;transition:background .2s,transform .15s;white-space:nowrap}
+.gen-itinerary-btn:hover{background:#1A6B76;transform:translateY(-1px)}
+.gen-itinerary-btn:active{transform:translateY(0)}
+.gen-itinerary-btn svg{width:14px;height:14px}
+[data-theme="dark"] .gen-itinerary-btn{background:#4FBCC9;color:#0F1F22}
+[data-theme="dark"] .gen-itinerary-btn:hover{background:#3AA8B5}
+@media(max-width:640px){.gen-itinerary-box{flex-direction:column;align-items:stretch}.gen-itinerary-btn{justify-content:center}}
+@keyframes spin{to{transform:rotate(360deg)}}
+.section{padding:clamp(24px,4vw,48px) 20px}
+.section-inner{max-width:960px;margin:0 auto}
+.section-header{margin-bottom:20px}
+.section-eyebrow{font-size:11px;font-weight:600;text-transform:uppercase;letter-spacing:.12em;color:var(--s-primary);margin-bottom:4px}
+.section-title{font-family:var(--s-font-display);font-size:clamp(1.2rem,.6rem + 1.5vw,1.6rem);font-weight:500;color:var(--s-text)}
+.group-section{margin-bottom:28px}
+.group-section:last-child{margin-bottom:0}
+.group-header{display:flex;align-items:center;gap:10px;margin-bottom:14px;padding-bottom:10px;border-bottom:2px solid var(--s-border)}
+.group-icon{width:32px;height:32px;border-radius:8px;display:flex;align-items:center;justify-content:center;flex-shrink:0}
+.group-icon svg{width:16px;height:16px;stroke-width:1.8}
+.group-label{font-family:var(--s-font-display);font-size:17px;font-weight:600;color:var(--s-text)}
+.group-count{font-size:11px;font-weight:500;color:var(--s-text-faint);margin-left:auto}
+.group-header[data-group="Vuelos"]{border-bottom-color:#20808D}
+.group-header[data-group="Vuelos"] .group-icon{background:rgba(32,128,141,.12);color:#20808D}
+.group-header[data-group="Transporte Terrestre"]{border-bottom-color:#A84B2F}
+.group-header[data-group="Transporte Terrestre"] .group-icon{background:rgba(168,75,47,.12);color:#A84B2F}
+.group-header[data-group="Hospedaje"]{border-bottom-color:#944454}
+.group-header[data-group="Hospedaje"] .group-icon{background:rgba(148,68,84,.12);color:#944454}
+.group-header[data-group="Experiencias"]{border-bottom-color:#D4A017}
+.group-header[data-group="Experiencias"] .group-icon{background:rgba(212,160,23,.12);color:#D4A017}
+.group-header[data-group="Actividades"]{border-bottom-color:#2E8B57}
+.group-header[data-group="Actividades"] .group-icon{background:rgba(46,139,87,.12);color:#2E8B57}
+.group-header[data-group*="Día 1"]{border-bottom-color:#20808D}
+.group-header[data-group*="Día 1"] .group-icon{background:rgba(32,128,141,.12);color:#20808D}
+.group-header[data-group*="Día 2"]{border-bottom-color:#2E8B57}
+.group-header[data-group*="Día 2"] .group-icon{background:rgba(46,139,87,.12);color:#2E8B57}
+.group-header[data-group*="Día 3"]{border-bottom-color:#D4A017}
+.group-header[data-group*="Día 3"] .group-icon{background:rgba(212,160,23,.12);color:#D4A017}
+.group-header[data-group*="Día 4"]{border-bottom-color:#944454}
+.group-header[data-group*="Día 4"] .group-icon{background:rgba(148,68,84,.12);color:#944454}
+[data-theme="dark"] .group-header[data-group="Vuelos"] .group-icon{background:rgba(32,128,141,.2);color:#4FBCC9}
+[data-theme="dark"] .group-header[data-group="Transporte Terrestre"] .group-icon{background:rgba(168,75,47,.2);color:#D4734F}
+[data-theme="dark"] .group-header[data-group="Hospedaje"] .group-icon{background:rgba(148,68,84,.2);color:#C47080}
+[data-theme="dark"] .group-header[data-group="Experiencias"] .group-icon{background:rgba(212,160,23,.2);color:#E8C847}
+[data-theme="dark"] .group-header[data-group="Actividades"] .group-icon{background:rgba(46,139,87,.2);color:#5AB87A}
+[data-theme="dark"] .group-header[data-group*="Día 1"] .group-icon{background:rgba(32,128,141,.2);color:#4FBCC9}
+[data-theme="dark"] .group-header[data-group*="Día 2"] .group-icon{background:rgba(46,139,87,.2);color:#5AB87A}
+[data-theme="dark"] .group-header[data-group*="Día 3"] .group-icon{background:rgba(212,160,23,.2);color:#E8C847}
+[data-theme="dark"] .group-header[data-group*="Día 4"] .group-icon{background:rgba(148,68,84,.2);color:#C47080}
+.card-grid{display:flex;flex-direction:column;gap:0}
+.group-cards{display:grid;grid-template-columns:repeat(2,1fr);gap:12px}
+@media(max-width:720px){.group-cards{grid-template-columns:1fr}}
+.res-card{background:var(--s-surface);border:1.5px solid var(--s-border);border-radius:var(--s-radius-md);padding:20px;display:flex;flex-direction:column;gap:10px;transition:all .2s}
+.res-card:hover{box-shadow:0 4px 20px rgba(0,0,0,.06)}
+.res-card-head{display:flex;align-items:flex-start;justify-content:space-between;gap:8px}
+.res-card-cat{font-family:var(--s-font-display);font-size:16px;font-weight:600;color:var(--s-text)}
+.badge{padding:3px 10px;border-radius:999px;font-size:10px;font-weight:700;text-transform:uppercase;letter-spacing:.04em}
+.badge--pendiente{background:var(--s-bg-alt);color:var(--s-text-muted);border:1px solid var(--s-border)}
+.badge--proceso{background:rgba(212,160,23,.1);color:#B8860B}
+.badge--confirmado{background:rgba(46,139,87,.08);color:#2E8B57}
+.badge--error{background:rgba(196,53,53,.08);color:#C43535}
+.res-card-desc{font-size:12px;color:var(--s-text-body);line-height:1.5}
+.res-card-price{display:flex;align-items:baseline;gap:6px;flex-wrap:wrap}
+.res-card-price-main{font-size:18px;font-weight:700;color:var(--s-primary)}
+.res-card-price-sub{font-size:11px;color:var(--s-text-muted)}
+.res-card-details{display:flex;flex-direction:column;gap:3px;padding-top:8px;border-top:1px solid var(--s-border)}
+.detail-row{display:flex;justify-content:space-between;font-size:11px}
+.detail-label{color:var(--s-text-faint);text-transform:uppercase;letter-spacing:.04em;font-weight:600}
+.detail-value{color:var(--s-text-body);text-align:right;max-width:60%}
+.res-card-notes{font-size:11px;color:var(--s-text-muted);font-style:italic;padding:6px 10px;background:var(--s-bg-alt);border-radius:var(--s-radius-sm);line-height:1.4}
+.res-card-actions{display:flex;align-items:center;gap:8px;flex-wrap:wrap;padding-top:10px;border-top:1px solid var(--s-border)}
+.btn{display:inline-flex;align-items:center;gap:6px;padding:6px 14px;border-radius:var(--s-radius-sm);font-family:var(--s-font-body);font-size:11px;font-weight:600;cursor:pointer;transition:all .2s;text-decoration:none;border:none}
+.btn--primary{background:var(--s-primary);color:#fff}
+.btn--primary:hover{background:var(--s-primary-hover)}
+.btn--outline{background:transparent;color:var(--s-primary);border:1.5px solid var(--s-primary)}
+.btn--outline:hover{background:var(--s-primary-faint)}
+.btn--ghost{background:transparent;color:var(--s-text-muted);border:1px solid var(--s-border)}
+.btn--ghost:hover{color:var(--s-primary);border-color:var(--s-primary)}
+.summary-box{background:var(--s-dark);color:#fff;border-radius:var(--s-radius-lg);padding:24px;position:relative;overflow:hidden}
+[data-theme="dark"] .summary-box{background:#1A3338;border:1px solid #2A4A50}
+.summary-box::before{content:'';position:absolute;top:-40%;right:-15%;width:300px;height:300px;background:radial-gradient(circle,rgba(32,128,141,.12),transparent 70%);pointer-events:none}
+.summary-row{display:flex;justify-content:space-between;align-items:center;position:relative}
+.summary-label{font-size:14px;color:rgba(255,255,255,.6)}
+.summary-value{font-family:var(--s-font-display);font-size:clamp(1.4rem,.6rem + 2vw,2rem);font-weight:700;color:#4FBCC9}
+.summary-sub{display:flex;justify-content:space-between;font-size:12px;color:rgba(255,255,255,.4);margin-top:4px;position:relative}
+.summary-note{font-size:11px;color:rgba(255,255,255,.3);margin-top:12px;padding-top:12px;border-top:1px solid rgba(255,255,255,.08);position:relative}
+.modal-overlay{position:fixed;inset:0;background:rgba(19,52,59,.5);backdrop-filter:blur(6px);z-index:200;display:none;align-items:center;justify-content:center;padding:20px}
+.modal-overlay.is-open{display:flex}
+.modal{background:var(--s-bg);border:1px solid var(--s-border);border-radius:var(--s-radius-lg);padding:24px;max-width:420px;width:100%;display:flex;flex-direction:column;gap:16px}
+[data-theme="dark"] .modal{background:var(--s-surface)}
+.modal-title{font-family:var(--s-font-display);font-size:18px;font-weight:600;color:var(--s-text)}
+.modal-field label{display:block;font-size:11px;font-weight:600;text-transform:uppercase;letter-spacing:.06em;color:var(--s-text-faint);margin-bottom:4px}
+.modal-field input,.modal-field select{width:100%;padding:8px 12px;border:1px solid var(--s-border);border-radius:var(--s-radius-sm);font-family:var(--s-font-body);font-size:13px;color:var(--s-text);background:var(--s-surface);transition:border .2s}
+.modal-field input:focus,.modal-field select:focus{outline:none;border-color:var(--s-primary)}
+.modal-actions{display:flex;gap:8px;justify-content:flex-end}
+.toast{position:fixed;bottom:24px;left:50%;transform:translateX(-50%) translateY(100px);background:var(--s-dark);color:#fff;padding:10px 24px;border-radius:999px;font-size:13px;font-weight:500;z-index:300;opacity:0;transition:all .3s;pointer-events:none}
+.toast.is-visible{transform:translateX(-50%) translateY(0);opacity:1}
+.footer{border-top:1px solid var(--s-border);padding:32px 20px;text-align:center}
+.footer-brand{font-family:var(--s-font-display);font-size:14px;font-weight:500;color:var(--s-text);margin-bottom:4px}
+.footer-sub{font-size:11px;color:var(--s-text-faint)}
+.footer-sub a{color:var(--s-text-faint);text-decoration:underline;text-underline-offset:2px}
+.footer-sub a:hover{color:var(--s-primary)}
+</style>
+      <script src="js/config.js"></script>
+    <script src="js/supabase-client.js"></script>
+</head>
+<body>
+
+<nav class="nav" id="nav">
+ <div class="nav-inner">
+  <div class="nav-brand">Panel de Reservas</div>
+  <div class="nav-right">
+   <button class="theme-toggle" id="themeToggle" aria-label="Cambiar tema">
+    <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"/></svg>
+   </button>
+  </div>
+ </div>
+</nav>
+
+<header class="hero">
+ <div class="hero-inner">
+  <p class="hero-eyebrow">Familia Soffer</p>
+  <h1>{{DESTINO}}</h1>
+  <div class="hero-meta">
+   <span class="hero-tag">{{FECHAS}} · {{NOCHES}} noches</span>
+   <span class="hero-tag">{{NUM_VIAJEROS}} viajeros</span>
+   <span class="hero-tag" id="heroProgress">Cargando...</span>
+  </div>
+ </div>
+</header>
+
+<div class="progress">
+ <div class="progress-box">
+  <div class="progress-text" id="progressText">Cargando...</div>
+  <div class="progress-track" id="progressTrack"></div>
+  <div class="progress-legend">
+   <span class="legend-pendiente">Pendiente</span>
+   <span class="legend-proceso">En proceso</span>
+   <span class="legend-confirmado">Confirmado</span>
+   <span class="legend-error">Error</span>
+  </div>
+ </div>
+</div>
+
+<div class="gen-itinerary">
+ <div class="gen-itinerary-box">
+  <div class="gen-itinerary-text">
+   <span class="gen-itinerary-label" id="genItinLabel">Itinerario disponible</span>
+   <span class="gen-itinerary-desc" id="genItinDesc">Todas las reservas están confirmadas. Puedes generar el itinerario completo.</span>
+  </div>
+  <button class="gen-itinerary-btn" id="genItinBtn" onclick="generateItinerary()">
+   <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="10" r="3"/><path d="M12 21.7C17.3 17 20 13 20 10a8 8 0 1 0-16 0c0 3 2.7 7 8 11.7z"/></svg>
+   Generar Itinerario
+  </button>
+ </div>
+</div>
+
+<section class="section">
+ <div class="section-inner">
+  <div class="section-header">
+   <div class="section-eyebrow">Reservaciones</div>
+   <h2 class="section-title">Estado de cada servicio</h2>
+  </div>
+  <div class="card-grid" id="grid"></div>
+ </div>
+</section>
+
+<section class="section" style="padding-top:0">
+ <div class="section-inner">
+  <div class="summary-box">
+   <div class="summary-row">
+    <span class="summary-label">Total estimado</span>
+    <span class="summary-value" id="sumTotal">—</span>
+   </div>
+   <div class="summary-sub"><span>Equivalente</span><span id="sumUsd">—</span></div>
+   <div class="summary-note"><span id="sumNote"></span><br>Última actualización: <span id="sumDate">—</span></div>
+  </div>
+ </div>
+</section>
+
+<div class="modal-overlay" id="modalOverlay">
+ <div class="modal" role="dialog" aria-labelledby="modalTitle">
+  <h3 class="modal-title" id="modalTitle">Actualizar reserva</h3>
+  <div class="modal-field">
+   <label for="modalStatus">Estatus</label>
+   <select id="modalStatus">
+    <option value="confirmado">Confirmado</option>
+    <option value="proceso">En proceso</option>
+    <option value="pendiente">Pendiente</option>
+    <option value="error">Error</option>
+   </select>
+  </div>
+  <div class="modal-field">
+   <label for="modalRef"># Confirmación / Referencia</label>
+   <input id="modalRef" type="text" placeholder="Ej: ABC123">
+  </div>
+  <div class="modal-field">
+   <label for="modalNotes">Notas adicionales</label>
+   <input id="modalNotes" type="text" placeholder="Ej: Pagado con tarjeta X">
+  </div>
+  <div class="modal-actions">
+   <button class="btn btn--ghost" id="modalCancel">Cancelar</button>
+   <button class="btn btn--primary" id="modalSave">Guardar</button>
+  </div>
+ </div>
+</div>
+
+<div class="toast" id="toast"></div>
+
+<footer class="footer">
+ <div class="footer-brand">Panel de Reservas — Familia Soffer</div>
+ <div class="footer-sub"><a href="https://www.perplexity.ai/computer" target="_blank" rel="noopener noreferrer">Created with Perplexity Computer</a></div>
+</footer>
+
+<script>
+
+(function(){
+  "use strict";
+  var STATUS={
+    pendiente:{label:"Pendiente",css:"pendiente"},
+    proceso:{label:"En proceso",css:"proceso"},
+    confirmado:{label:"Confirmado",css:"confirmado"},
+    error:{label:"Error",css:"error"}
+  };
+  var data=null,activeId=null;
+
+  function esc(s){if(!s)return"";var d=document.createElement("div");d.appendChild(document.createTextNode(s));return d.innerHTML}
+
+  function buildCard(r){
+    var st=STATUS[r.status]||STATUS.pendiente;
+    var h='<div class="res-card" data-id="'+esc(r.id)+'">';
+    h+='<div class="res-card-head"><span class="res-card-cat">'+esc(r.category)+'</span>';
+    h+='<span class="badge badge--'+st.css+'">'+st.label+'</span></div>';
+    h+='<div class="res-card-desc">'+esc(r.description)+'</div>';
+    h+='<div class="res-card-price"><span class="res-card-price-main">'+esc(r.price)+'</span>';
+    if(r.priceDetail) h+='<span class="res-card-price-sub">'+esc(r.priceDetail)+'</span>';
+    h+='</div>';
+    if(r.reference||r.card||r.updated){
+      h+='<div class="res-card-details">';
+      if(r.reference) h+='<div class="detail-row"><span class="detail-label">Referencia</span><span class="detail-value">'+esc(r.reference)+'</span></div>';
+      if(r.card) h+='<div class="detail-row"><span class="detail-label">Tarjeta</span><span class="detail-value">'+esc(r.card)+'</span></div>';
+      if(r.updated) h+='<div class="detail-row"><span class="detail-label">Actualizado</span><span class="detail-value">'+esc(r.updated)+'</span></div>';
+      h+='</div>';
+    }
+    if(r.notes) h+='<div class="res-card-notes">'+esc(r.notes)+'</div>';
+    h+='<div class="res-card-actions">';
+    if(r.providerUrl&&r.status!=="confirmado"){
+      h+='<a class="btn btn--outline" href="'+esc(r.providerUrl)+'" target="_blank" rel="noopener">'+esc(r.providerName||"Reservar")+'</a>';
+    }
+    h+='<button class="btn btn--ghost" onclick="openModal(\''+esc(r.id)+'\')">Cambiar estatus</button>';
+    h+='</div></div>';
+    return h;
+  }
+
+  function updateProgress(res){
+    var total=res.length,confirmed=0;
+    res.forEach(function(r){if(r.status==="confirmado")confirmed++});
+    var el=document.getElementById("progressText");
+    if(el) el.textContent=confirmed+" de "+total+" reservas confirmadas";
+    var hp=document.getElementById("heroProgress");
+    if(hp) hp.textContent=confirmed+"/"+total+" confirmadas";
+    var track=document.getElementById("progressTrack");
+    if(track){
+      var s="";
+      res.forEach(function(r){s+='<div class="progress-seg progress-seg--'+(STATUS[r.status]||STATUS.pendiente).css+'"></div>'});
+      track.innerHTML=s;
+    }
+  }
+
+  function updateSummary(trip){
+    var set=function(id,v){var e=document.getElementById(id);if(e)e.textContent=v||""};
+    set("sumTotal",trip.totalEstimate);
+    set("sumUsd",trip.totalEstimateUSD);
+    set("sumNote",trip.note);
+    set("sumDate",trip.lastUpdated);
+  }
+
+  var GROUP_ICONS={
+    "Vuelos":'<svg viewBox="0 0 24 24" fill="none" stroke="currentColor"><path d="M17.8 19.2L16 11l3.5-3.5C20.3 6.7 20.3 5.3 19.5 4.5s-2.2-.8-3 0L13 8 4.8 6.2c-.5-.1-.9.1-1.1.5l-.3.5 7.5 4-4.5 4.5-2.2-.8-.8.3 2.8 2.8.3-.8-.8-2.2 4.5-4.5 4 7.5.5-.3c.4-.2.6-.7.5-1.1z"/></svg>',
+    "Transporte Terrestre":'<svg viewBox="0 0 24 24" fill="none" stroke="currentColor"><path d="M5 17h14v-5H5v5zM2 12l2-6h16l2 6M7 20a1 1 0 100-2 1 1 0 000 2zM17 20a1 1 0 100-2 1 1 0 000 2z"/></svg>',
+    "Hospedaje":'<svg viewBox="0 0 24 24" fill="none" stroke="currentColor"><path d="M3 21V7l9-4 9 4v14M9 21v-6h6v6"/></svg>',
+    "Experiencias":'<svg viewBox="0 0 24 24" fill="none" stroke="currentColor"><path d="M9.5 2A5.5 5.5 0 0115 7.5V8h1a4 4 0 010 8H7a5 5 0 01-.5-9.97A5.5 5.5 0 019.5 2z"/></svg>',
+    "Actividades":'<svg viewBox="0 0 24 24" fill="none" stroke="currentColor"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg>'
+  };
+  // {{DAY_GROUP_ICONS}} — Merge additional day-based icons into GROUP_ICONS here
+  try { if (typeof DAY_GROUP_ICONS !== 'undefined') { Object.assign(GROUP_ICONS, DAY_GROUP_ICONS); } } catch(e) {}
+  var GROUP_ORDER=["Vuelos","Transporte Terrestre","Hospedaje","Experiencias","Actividades"];
+
+  function render(){
+    if(!data)return;
+    var grid=document.getElementById("grid");
+    if(grid){
+      // Group reservations by group field
+      var groups={};
+      data.reservations.forEach(function(r){
+        var g=r.group||"Otros";
+        if(!groups[g])groups[g]=[];
+        groups[g].push(r);
+      });
+      // Render in defined order, then any remaining
+      var h="";
+      var rendered={};
+      GROUP_ORDER.forEach(function(g){
+        if(groups[g]){
+          h+=buildGroupSection(g,groups[g]);
+          rendered[g]=true;
+        }
+      });
+      Object.keys(groups).forEach(function(g){
+        if(!rendered[g]) h+=buildGroupSection(g,groups[g]);
+      });
+      grid.innerHTML=h;
+    }
+    updateProgress(data.reservations);
+    updateSummary(data.trip);
+  }
+
+  function buildGroupSection(groupName,items){
+    var icon=GROUP_ICONS[groupName]||GROUP_ICONS["Actividades"];
+    var h='<div class="group-section">';
+    h+='<div class="group-header" data-group="'+esc(groupName)+'">';
+    h+='<div class="group-icon">'+icon+'</div>';
+    h+='<span class="group-label">'+esc(groupName)+'</span>';
+    h+='<span class="group-count">'+items.length+(items.length===1?' reserva':' reservas')+'</span>';
+    h+='</div>';
+    h+='<div class="group-cards">';
+    items.forEach(function(r){h+=buildCard(r)});
+    h+='</div></div>';
+    return h;
+  }
+
+  // Modal
+  var overlay=document.getElementById("modalOverlay");
+  window.openModal=function(id){
+    activeId=id;
+    var r=data.reservations.find(function(x){return x.id===id});
+    if(!r)return;
+    document.getElementById("modalTitle").textContent="Actualizar: "+r.category;
+    document.getElementById("modalStatus").value=r.status;
+    document.getElementById("modalRef").value="";
+    document.getElementById("modalNotes").value="";
+    overlay.classList.add("is-open");
+  };
+  document.getElementById("modalCancel").addEventListener("click",function(){overlay.classList.remove("is-open");activeId=null});
+  overlay.addEventListener("click",function(e){if(e.target===overlay){overlay.classList.remove("is-open");activeId=null}});
+  document.getElementById("modalSave").addEventListener("click",function(){
+    if(!activeId||!data)return;
+    var r=data.reservations.find(function(x){return x.id===activeId});
+    if(!r)return;
+    r.status=document.getElementById("modalStatus").value;
+    var ref=document.getElementById("modalRef").value.trim();
+    var notes=document.getElementById("modalNotes").value.trim();
+    if(ref)r.reference=ref;
+    if(notes)r.notes=(r.notes?r.notes+" | ":"")+notes;
+    var now=new Date();
+    r.updated=now.getDate()+" "+["ene","feb","mar","abr","may","jun","jul","ago","sep","oct","nov","dic"][now.getMonth()]+" "+now.getFullYear()+" "+String(now.getHours()).padStart(2,"0")+":"+String(now.getMinutes()).padStart(2,"0");
+    data.trip.lastUpdated=r.updated;
+    overlay.classList.remove("is-open");activeId=null;
+    render();
+    showToast(r.category+" → "+STATUS[r.status].label);
+  });
+
+  // Toast
+  function showToast(msg){var t=document.getElementById("toast");t.textContent=msg;t.classList.add("is-visible");setTimeout(function(){t.classList.remove("is-visible")},3000)}
+
+  // Theme
+  var toggle=document.getElementById("themeToggle"),root=document.documentElement,theme="light";
+  toggle.addEventListener("click",function(){
+    theme=theme==="dark"?"light":"dark";
+    root.setAttribute("data-theme",theme);
+    toggle.innerHTML=theme==="dark"
+      ?'<svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="5"/><path d="M12 1v2M12 21v2M4.22 4.22l1.42 1.42M18.36 18.36l1.42 1.42M1 12h2M21 12h2M4.22 19.78l1.42-1.42M18.36 5.64l1.42-1.42"/></svg>'
+      :'<svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"/></svg>';
+  });
+
+  // Nav scroll
+  window.addEventListener("scroll",function(){document.getElementById("nav").classList.toggle("nav--scrolled",window.scrollY>50)},{passive:true});
+
+  // Generate Itinerary button
+  window.generateItinerary = function() {
+    var btn = document.getElementById('genItinBtn');
+    var label = document.getElementById('genItinLabel');
+    var desc = document.getElementById('genItinDesc');
+    btn.disabled = true;
+    btn.innerHTML = '<span style="display:inline-block;width:14px;height:14px;border:2px solid rgba(255,255,255,.3);border-top-color:#fff;border-radius:50%;animation:spin .6s linear infinite"></span> Generando...';
+    setTimeout(function() {
+      btn.innerHTML = '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" width="14" height="14"><polyline points="20 6 9 17 4 12"/></svg> Solicitud enviada';
+      btn.style.background = '#2E8B57';
+      label.textContent = 'Solicitud enviada al agente';
+      desc.textContent = 'El itinerario se generar\u00E1 y estar\u00E1 disponible en el portal.';
+    }, 2000);
+  };
+
+  // Init
+  fetch("./reservations.json")
+    .then(function(r){if(!r.ok)throw new Error("HTTP "+r.status);return r.json()})
+    .then(function(d){data=d;render()})
+    .catch(function(err){
+      var grid=document.getElementById("grid");
+      if(grid)grid.innerHTML='<div style="grid-column:1/-1;text-align:center;padding:40px;color:var(--s-text-muted)">Error al cargar datos: '+esc(err.message)+'</div>';
+    });
+})();
+
+</script>
+</body>
+</html>
