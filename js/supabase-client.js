@@ -72,26 +72,25 @@ async getTrips() {
   }
 
   // Obtener reservas de un viaje
-  async getReservations(tripId) {
-    return this.query('/reservations', {
-      params: { 
-        trip_id: `eq.${tripId}`,
-        select: '*',
-        order: 'group_name,code'
-      }
-    });
-  }
+async getReservations(tripId) {
+  return this.query('/reservations', {
+    params: { 
+      tripid: `eq.${tripId}`,        // antes: trip_id
+      select: '*',
+      order: 'group,code'            // antes: group_name,code
+    }
+  });
+}
 
-  // Obtener viajeros de un viaje
-  async getTripTravelers(tripId) {
-    return this.query('/trip_travelers', {
-      params: { 
-        trip_id: `eq.${tripId}`,
-        select: 'traveler_id,role,travelers(*)'
-      }
-    });
-  }
-
+// Obtener viajeros de un viaje
+async getTripTravelers(tripId) {
+  return this.query('/triptravelers', {   // antes: /trip_travelers
+    params: { 
+      tripid: `eq.${tripId}`,            // antes: trip_id
+      select: 'travelerid,role,travelers(*)' // antes: traveler_id
+    }
+  });
+}
   // Crear nueva solicitud de viaje
   async createTripRequest(data) {
     return this.query('/trip_requests', {
