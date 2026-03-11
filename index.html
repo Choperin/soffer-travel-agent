@@ -153,8 +153,7 @@ a.submenu__item:hover{background:var(--overlay)}
  <p class="footer__credit"><a href="https://www.perplexity.ai/computer" target="_blank" rel="noopener noreferrer">Created with Perplexity Computer</a></p>
 </footer>
 
-<script src="js/supabase-client.js"></script>
-<script>
+    <script>
 (function () {
   'use strict';
 
@@ -270,165 +269,29 @@ a.submenu__item:hover{background:var(--overlay)}
      JavaScript
      ======================================== -->
 <script>
-(function() {
+(function () {
   'use strict';
 
-  /* ---- Reservation Data ---- */
-  /* {{RESERVATIONS_DATA}} — Array de objetos {id, status} para CADA viaje */
-
-  const TRIP_DATE = new Date({{TRIP_YEAR}}, {{TRIP_MONTH_0}}, {{TRIP_DAY}}); // Mes base-0 // April 8, 2026
-
-  /* ---- Countdown ---- */
-  function updateCountdown() {
-    var el = document.getElementById('countdown');
-    if (!el) return;
-    var now = new Date();
-    var today = new Date(now.getFullYear(), now.getMonth(), now.getDate());
-    var diff = Math.floor((TRIP_DATE - today) / (1000 * 60 * 60 * 24));
-
-    if (diff > 0) {
-      el.className = 'card__countdown card__countdown--upcoming';
-      el.innerHTML = svgClock() + diff + (diff === 1 ? ' día' : ' días');
-    } else if (diff === 0) {
-      el.className = 'card__countdown card__countdown--today';
-      el.innerHTML = svgCheck() + 'Hoy';
-    } else {
-      el.className = 'card__countdown card__countdown--past';
-      el.innerHTML = svgCheck() + 'Completado';
+  async function loadTrips() {
+    try {
+      const trips = await supabase.getTrips();
+      console.log('✅ Viajes cargados:', trips);
+      // Más adelante usaremos estos datos para pintar las tarjetas
+    } catch (error) {
+      console.error('❌ Error cargando viajes:', error);
     }
   }
 
-  function svgClock() {
-    return '<svg width="14" height="14" viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg" style="flex-shrink:0"><circle cx="8" cy="8" r="6.5" stroke="currentColor" stroke-width="1.3"/><path d="M8 4.5V8l3 1.5" stroke="currentColor" stroke-width="1.3" stroke-linecap="round" stroke-linejoin="round"/></svg>';
-  }
-
-  function svgCheck() {
-    return '<svg width="14" height="14" viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg" style="flex-shrink:0"><path d="M3.5 8.5l3 3 6-6" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>';
-  }
-
-  function svgSpinner() {
-    return '<svg width="13" height="13" viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg" style="flex-shrink:0;animation:spin 1.2s linear infinite"><circle cx="8" cy="8" r="6" stroke="currentColor" stroke-width="1.5" stroke-dasharray="28 10" stroke-linecap="round"/></svg>';
-  }
-
-  function svgClockBadge() {
-    return '<svg width="13" height="13" viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg" style="flex-shrink:0"><circle cx="8" cy="8" r="6.5" stroke="currentColor" stroke-width="1.3"/><path d="M8 4.5V8l2.5 1.5" stroke="currentColor" stroke-width="1.2" stroke-linecap="round" stroke-linejoin="round"/></svg>';
-  }
-
-  /* ---- Status Badge (S42d Rule) ---- */
-  function updateStatusBadge() {
-    var el = document.getElementById('statusBadge');
-    if (!el) return;
-
-    var now = new Date();
-    var today = new Date(now.getFullYear(), now.getMonth(), now.getDate());
-    // Trip end date: April 11, 2026
-    var tripEnd = new Date({{TRIP_YEAR}}, {{TRIP_MONTH_0}}, {{TRIP_END_DAY}});
-
-    // Check if trip is past
-    if (today > tripEnd) {
-      el.innerHTML = '<span class="badge badge--completado">' + svgCheck() + 'Completado</span>';
-      return;
-    }
-
-    // Check reservations
-    if (!reservationsData || reservationsData.length === 0) {
-      el.innerHTML = '<span class="badge badge--planeacion">' + svgClockBadge() + 'En Planeación</span>';
-      return;
-    }
-
-    var allConfirmed = reservationsData.every(function(r) { return r.status === 'confirmado'; });
-
-    if (allConfirmed) {
-      el.innerHTML = '<span class="badge badge--confirmado">' + svgCheck() + 'Confirmado</span>';
-    } else {
-      el.innerHTML = '<span class="badge badge--en-reserva">' + svgSpinner() + 'En Reserva</span>';
-    }
-  }
-
-  /* ---- Dark Mode Toggle ---- */
   window.toggleTheme = function() {
     var html = document.documentElement;
     var current = html.getAttribute('data-theme');
     var next = current === 'dark' ? 'light' : 'dark';
     html.setAttribute('data-theme', next);
-    // Theme persists for session only (sandboxed)
   };
 
-  // Restore saved theme
-  (function() {
-    try {
-      if (window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches) {
-        document.documentElement.setAttribute('data-theme', 'dark');
-      }
-    } catch(e) {}
-  })();
-
-  /* ---- Card Submenu Toggle ---- */
-  window.toggleSubmenu = function(card, event) {
-    // Don't toggle if clicking a link inside submenu
-    if (event.target.closest('.submenu__item')) return;
-    card.classList.toggle('is-expanded');
-  };
-
-  /* ---- Itinerario Link — unlock when all reservations confirmed ---- */
-  function updateItinerarioLink() {
-    var link = document.getElementById('itinerarioLink');
-    var badge = document.getElementById('itinerarioBadge');
-    if (!link || !badge) return;
-
-    var url = link.getAttribute('data-url');
-    var hasUrl = url && url !== '' && url.indexOf('{{') === -1;
-
-    // Check if all reservations are confirmed
-    var allConfirmed = reservationsData 
-      && reservationsData.length > 0 
-      && reservationsData.every(function(r) { return r.status === 'confirmado'; });
-
-    if (allConfirmed && hasUrl) {
-      // Unlock: make clickable
-      link.href = url;
-      link.target = '_blank';
-      link.rel = 'noopener noreferrer';
-      link.style.pointerEvents = 'auto';
-      link.classList.remove('submenu__item--locked');
-      badge.className = 'submenu__badge submenu__badge--completed';
-      badge.textContent = 'Listo';
-    } else if (allConfirmed && !hasUrl) {
-      // Reservations confirmed but itinerary not yet generated
-      link.style.pointerEvents = 'none';
-      link.classList.add('submenu__item--locked');
-      badge.className = 'submenu__badge submenu__badge--active';
-      badge.innerHTML = svgSpinner() + ' Generando';
-    } else if (reservationsData && reservationsData.length > 0) {
-      // Some reservations in progress
-      link.style.pointerEvents = 'none';
-      link.classList.add('submenu__item--locked');
-      badge.className = 'submenu__badge submenu__badge--locked';
-      badge.textContent = 'En Reserva';
-    } else {
-      // No reservations yet
-      link.style.pointerEvents = 'none';
-      link.classList.add('submenu__item--locked');
-      badge.className = 'submenu__badge submenu__badge--locked';
-      badge.textContent = 'Pendiente';
-    }
-  }
-
-  /* ---- Init ---- */
-  updateCountdown();
-  updateStatusBadge();
-  updateItinerarioLink();
-
-  // Update countdown every minute
-  setInterval(updateCountdown, 60000);
-
-  /* ---- Spinner animation keyframes ---- */
-  var style = document.createElement('style');
-  style.textContent = '@keyframes spin{from{transform:rotate(0deg)}to{transform:rotate(360deg)}}';
-  document.head.appendChild(style);
-
+  loadTrips();
 })();
-
 </script>
+
 </body>
 </html>
