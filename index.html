@@ -153,14 +153,36 @@ a.submenu__item:hover{background:var(--overlay)}
  <p class="footer__credit"><a href="https://www.perplexity.ai/computer" target="_blank" rel="noopener noreferrer">Created with Perplexity Computer</a></p>
 </footer>
 
+<script src="js/supabase-client.js"></script>
 <script>
+(function () {
+  'use strict';
 
-         {{RESERVATIONS_DATA}} — var reservationsData = [{id:'vuelo',status:'confirmado'}, ...];
-         {{TRIP_YEAR}}         — Año del viaje (ej: 2026)
-         {{TRIP_MONTH_0}}      — Mes base-0 (ej: 4 para mayo)
-         {{TRIP_DAY}}          — Día de inicio
-         {{TRIP_END_DAY}}      — Día de fin
-         ═══════════════════════════ -->
+  // Cargar viajes desde Supabase
+  async function loadTrips() {
+    try {
+      const trips = await supabase.getTrips();
+      console.log('✅ Viajes cargados:', trips);
+      // Por ahora solo mostramos en consola
+      // En Fase 3 renderizaremos las tarjetas dinámicamente
+    } catch (error) {
+      console.error('❌ Error cargando viajes:', error);
+    }
+  }
+
+  // Dark mode toggle
+  window.toggleTheme = function() {
+    var html = document.documentElement;
+    var current = html.getAttribute('data-theme');
+    var next = current === 'dark' ? 'light' : 'dark';
+    html.setAttribute('data-theme', next);
+  };
+
+  // Cargar viajes al iniciar
+  loadTrips();
+})();
+</script>
+
 
     <!-- {{TRIP_CARDS}} -->
     <!-- Ejemplo de estructura de una tarjeta:
