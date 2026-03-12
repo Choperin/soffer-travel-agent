@@ -77,7 +77,7 @@ async getReservations(tripId) {
     params: { 
       tripid: `eq.${tripId}`,        // antes: trip_id
       select: '*',
-      order: 'group,code'            // antes: group_name,code
+      order: 'groupname,code'            // antes: group_name,code
     }
   });
 }
