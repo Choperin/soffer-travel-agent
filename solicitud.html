@@ -537,25 +537,6 @@ button{border:none;background:none;cursor:pointer;font-family:inherit;color:inhe
   }
 
   /* ========================================
-     Supabase Insert
-     ======================================== */
-  function supabaseInsert(table, data) {
-    return fetch(SUPABASE_URL + '/rest/v1/' + table, {
-      method: 'POST',
-      headers: {
-        'Content-Type': 'application/json',
-        'apikey': SUPABASE_ANON_KEY,
-        'Authorization': 'Bearer ' + SUPABASE_ANON_KEY,
-        'Prefer': 'return=representation'
-      },
-      body: JSON.stringify(data)
-    }).then(function(res) {
-      if (!res.ok) throw new Error('Supabase error: ' + res.status);
-      return res.json();
-    });
-  }
-
-  /* ========================================
      Set min date to today
      ======================================== */
   var today = new Date().toISOString().split('T')[0];
