@@ -316,30 +316,31 @@ a.submenu__item:hover{background:var(--overlay)}
     return 'Pendiente';
   }
 
-  async function checkItinerarioStatus(trip) {
-    // Solo revisar si está en estado "reservado"
-    if (trip.tripstatus !== 'reservado') return;
+async function checkItinerarioStatus(trip) {
+  // Solo revisar si está en estado "reservado"
+  if (trip.tripstatus !== 'reservado') return;
 
-    try {
-      const reservations = await supabase.getReservations(trip.tripid);
-      const allConfirmed = reservations.every(r => r.reservationstatus === 'confirmado');
-
-      if (allConfirmed && reservations.length > 0) {
-        // Desbloquear itinerario
-        const link = document.getElementById(`itinerarioLink-${trip.tripid}`);
-        const badge = document.getElementById(`itinerarioBadge-${trip.tripid}`);
-
-        if (link && badge) {
-          link.classList.remove('submenu__item--locked');
-          link.style.pointerEvents = 'auto';
-          link.target = '_blank';
-          link.rel = 'noopener noreferrer';
-
-          badge.classList.remove('submenu__badge--locked');
-          badge.classList.add('submenu__badge--completed');
-          badge.textContent = '✓ Listo';
-        }
-          // Desbloquear RECOMENDACIONES (mismo estado que itinerario)
+  try {
+    const reservations = await supabase.getReservations(trip.tripid);
+    const allConfirmed = reservations.every(r => r.reservationstatus === 'confirmado');
+    
+    if (allConfirmed && reservations.length > 0) {
+      // Desbloquear ITINERARIO
+      const itinerarioLink = document.getElementById(`itinerarioLink-${trip.tripid}`);
+      const itinerarioBadge = document.getElementById(`itinerarioBadge-${trip.tripid}`);
+      
+      if (itinerarioLink && itinerarioBadge) {
+        itinerarioLink.classList.remove('submenuitem--locked');
+        itinerarioLink.style.pointerEvents = 'auto';
+        itinerarioLink.target = '_blank';
+        itinerarioLink.rel = 'noopener noreferrer';
+        
+        itinerarioBadge.classList.remove('submenubadge--locked');
+        itinerarioBadge.classList.add('submenubadge--completed');
+        itinerarioBadge.textContent = 'Listo';
+      }
+      
+      // Desbloquear RECOMENDACIONES (mismo estado que itinerario)
       const recomendacionesLink = document.getElementById(`recomendacionesLink-${trip.tripid}`);
       const recomendacionesBadge = document.getElementById(`recomendacionesBadge-${trip.tripid}`);
       
@@ -356,11 +357,9 @@ a.submenu__item:hover{background:var(--overlay)}
     }
   } catch (error) {
     console.error('Error checking itinerario status:', error);
-      }
-    } catch (error) {
-      console.error('Error checking itinerario status:', error);
-    }
   }
+}
+
 
   function formatPrice(mxn) {
     if (mxn == null) return '';
