@@ -339,6 +339,23 @@ a.submenu__item:hover{background:var(--overlay)}
           badge.classList.add('submenu__badge--completed');
           badge.textContent = '✓ Listo';
         }
+          // Desbloquear RECOMENDACIONES (mismo estado que itinerario)
+      const recomendacionesLink = document.getElementById(`recomendacionesLink-${trip.tripid}`);
+      const recomendacionesBadge = document.getElementById(`recomendacionesBadge-${trip.tripid}`);
+      
+      if (recomendacionesLink && recomendacionesBadge) {
+        recomendacionesLink.classList.remove('submenuitem--locked');
+        recomendacionesLink.style.pointerEvents = 'auto';
+        recomendacionesLink.target = '_blank';
+        recomendacionesLink.rel = 'noopener noreferrer';
+        
+        recomendacionesBadge.classList.remove('submenubadge--locked');
+        recomendacionesBadge.classList.add('submenubadge--completed');
+        recomendacionesBadge.textContent = 'Listo';
+      }
+    }
+  } catch (error) {
+    console.error('Error checking itinerario status:', error);
       }
     } catch (error) {
       console.error('Error checking itinerario status:', error);
@@ -430,15 +447,20 @@ a.submenu__item:hover{background:var(--overlay)}
             <span class="submenu__name">Itinerario</span>
             <span class="submenu__badge submenu__badge--locked" id="itinerarioBadge-${trip.tripid}">🔒 Bloqueado</span>
           </a>
-           <!-- Recomendaciones bloqueado -->
-    <a id="recomendacionesLink" data-url="https://choperin.github.io/soffer-travel-agent/recomendaciones.html" class="submenuitem submenuitem--locked" onclick="event.stopPropagation()" style="pointer-events:none;text-decoration:none;color:inherit;">
-      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" aria-hidden="true" style="width: 18px; height: 18px; flex-shrink: 0; color: var(--text-muted);">
-        <path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z" stroke-linecap="round" stroke-linejoin="round"></path>
-        <circle cx="12" cy="10" r="3" stroke-linecap="round" stroke-linejoin="round"></circle>
-      </svg>
-      <span class="submenuname">Recomendaciones</span>
-      <span id="recomendacionesBadge" class="submenubadge submenubadge--locked">Pendiente</span>
-    </a>
+      <!-- Recomendaciones bloqueado -->
+<a href="recomendaciones.html?trip=${trip.tripid}" 
+   id="recomendacionesLink-${trip.tripid}" 
+   class="submenuitem submenuitem--locked" 
+   style="pointer-events: none;" 
+   onclick="event.stopPropagation()">
+  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" aria-hidden="true" style="width: 18px; height: 18px; flex-shrink: 0; color: var(--text-muted);">
+    <path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z" stroke-linecap="round" stroke-linejoin="round"></path>
+    <circle cx="12" cy="10" r="3" stroke-linecap="round" stroke-linejoin="round"></circle>
+  </svg>
+  <span class="submenuname">Recomendaciones</span>
+  <span class="submenubadge submenubadge--locked" id="recomendacionesBadge-${trip.tripid}">Bloqueado</span>
+</a>
+
         </div>
       </div>
     `;
