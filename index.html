@@ -496,7 +496,17 @@ a.submenu__item:hover{background:var(--overlay)}
     html.setAttribute('data-theme', next);
   };
 
+ // Esperar a que Supabase esté disponible antes de cargar
+if (window.supabase) {
   loadTrips();
+} else {
+  // Si no está listo, esperar al evento DOMContentLoaded
+  document.addEventListener('DOMContentLoaded', function() {
+    // Dar tiempo extra para que los scripts externos carguen
+    setTimeout(loadTrips, 100);
+  });
+}
+
 })();
 </script>
 
