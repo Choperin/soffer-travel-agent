@@ -1451,7 +1451,19 @@ body {
         <div class="loyalty-grid">
           {{LOYALTY_PROGRAMS}}
         </div>
-      </section>
+<section class="dashboard-section">
+  <div class="section-header">
+    <div>
+      <h2 class="section-title">Viajeros</h2>
+      <p class="section-subtitle">Datos base de la familia Soffer desde Supabase.</p>
+    </div>
+  </div>
+
+  <div id="travelersTable" class="card card--table">
+    <!-- Tabla de viajeros se renderiza con JS -->
+  </div>
+</section>
+
 
       <!-- ===== FOOTER ===== -->
       <footer class="dashboard-footer">
@@ -1695,5 +1707,10 @@ body {
   updatePassportBars();
 })();
   </script>
+  <script src="js/config.js"></script>
+<script src="js/supabase-client.js"></script>
+<script src="js/dashboard-travelers.js"></script>
+</body>
+</html>
 </body>
 </html>
