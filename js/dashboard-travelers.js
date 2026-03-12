@@ -1,24 +1,20 @@
 // js/dashboard-travelers.js
-// Lectura básica de viajeros para dashboard.html
+// Lectura básica de viajeros para el dashboard usando el cliente global supabase
 
 async function loadTravelersForDashboard() {
   try {
-    const res = await fetch(`${SUPABASE_CONFIG.url}/rest/v1/travelers?select=*`, {
-      headers: {
-        apikey: SUPABASE_CONFIG.anonKey,
-        Authorization: `Bearer ${SUPABASE_CONFIG.anonKey}`
-      }
+    // Usa el cliente Supabase que ya tienes definido en supabase-client.js
+    const travelers = await supabase.query('/travelers', {
+      params: { select: '*' }
     });
 
-    if (!res.ok) {
-      console.error('Error cargando travelers:', await res.text());
-      return;
-    }
-
-    const travelers = await res.json();
     renderTravelersTable(travelers);
   } catch (err) {
-    console.error('Error de red cargando travelers:', err);
+    console.error('Error cargando travelers:', err);
+    const container = document.getElementById('travelersTable');
+    if (container) {
+      container.innerHTML = '<p class="text-muted">Error al cargar viajeros.</p>';
+    }
   }
 }
 
@@ -26,8 +22,8 @@ function renderTravelersTable(travelers) {
   const container = document.getElementById('travelersTable');
   if (!container) return;
 
-  if (!travelers.length) {
-    container.innerHTML = '<p>No hay viajeros registrados.</p>';
+  if (!travelers || travelers.length === 0) {
+    container.innerHTML = '<p class="text-muted">No hay viajeros registrados.</p>';
     return;
   }
 
@@ -55,7 +51,7 @@ function renderTravelersTable(travelers) {
   `;
 }
 
-// auto-run si estamos en dashboard
+// Ejecutar automáticamente cuando cargue el dashboard
 document.addEventListener('DOMContentLoaded', () => {
   if (document.getElementById('travelersTable')) {
     loadTravelersForDashboard();
