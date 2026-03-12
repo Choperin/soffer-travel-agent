@@ -1,14 +1,31 @@
 // dashboard-trips.js — Carga viajes para el dashboard
-(async function loadTripsForDashboard() {
+
+// Esperar a que el DOM esté listo
+if (document.readyState === 'loading') {
+  document.addEventListener('DOMContentLoaded', loadTripsForDashboard);
+} else {
+  loadTripsForDashboard();
+}
+
+async function loadTripsForDashboard() {
+  console.log('🚀 Cargando viajes desde Supabase...');
+  
   const container = document.getElementById('tripsTable');
-  if (!container) return;
+  if (!container) {
+    console.error('❌ Contenedor tripsTable no encontrado');
+    return;
+  }
 
   try {
     const trips = await supabase.getTrips();
+    console.log('✅ Viajes obtenidos:', trips);
     if (!trips || trips.length === 0) {
-      container.innerHTML = '<p style="color:var(--text-muted);text-align:center;padding:20px">No hay viajes registrados</p>';
+      console.log('ℹ️ No hay viajes en la base de datos');
+      container.innerHTML = '<p style="color:var(--color-text-muted);text-align:center;padding:20px">No hay viajes registrados</p>';
       return;
     }
+
+    console.log(`📊 Renderizando ${trips.length} viajes...`);
 
     let html = '<table style="width:100%;border-collapse:collapse;font-size:14px">';
     html += '<thead><tr style="border-bottom:2px solid var(--border,#E2DDD4);text-align:left">';
@@ -20,9 +37,9 @@
     html += '</tr></thead><tbody>';
 
     trips.forEach(trip => {
-      const startDate = trip.datestart ? new Date(trip.datestart).toLocaleDateString('es-MX') : 'Sin fecha';
-      const endDate = trip.dateend ? new Date(trip.dateend).toLocaleDateString('es-MX') : 'Sin fecha';
-      const tripType = trip.triptype || 'No especificado';
+      const startDate = trip.start_date ? new Date(trip.start_date).toLocaleDateString('es-MX') : 'Sin fecha';
+      const endDate = trip.end_date ? new Date(trip.end_date).toLocaleDateString('es-MX') : 'Sin fecha';
+      const tripType = trip.trip_type || 'No especificado';
       const status = trip.status || 'pending';
       
       // Badge de status con colores
@@ -50,12 +67,13 @@
 
     html += '</tbody></table>';
     container.innerHTML = html;
+    console.log('✅ Viajes renderizados correctamente');
 
   } catch (error) {
-    console.error('Error cargando viajes:', error);
-    container.innerHTML = '<p style="color:red;text-align:center;padding:20px">Error al cargar viajes</p>';
+    console.error('❌ Error cargando viajes:', error);
+    container.innerHTML = '<p style="color:red;text-align:center;padding:20px">Error al cargar viajes: ' + error.message + '</p>';
   }
-})();
+}
 
 // Función para ver detalles de un viaje
 function viewTrip(tripId) {
