@@ -446,7 +446,7 @@ button{border:none;background:none;cursor:pointer;font-family:inherit;color:inhe
     }
   };
 
-  /* ========================================
+    /* ========================================
      Activity Chips Toggle
      ======================================== */
   var chipGrid = document.getElementById('activityChips');
@@ -537,6 +537,65 @@ button{border:none;background:none;cursor:pointer;font-family:inherit;color:inhe
   }
 
   /* ========================================
+     Submit a Edge Function create-trip-request
+     ======================================== */
+  var form = document.getElementById('tripRequestForm');
+  if (form) {
+    var btn = document.getElementById('btnSubmit');
+    var formCard = document.getElementById('formCard');
+    var successCard = document.getElementById('successCard');
+    var successId = document.getElementById('successId');
+
+    form.addEventListener('submit', async function(e) {
+      e.preventDefault();
+
+      if (!validate()) return;
+
+      btn.classList.add('is-loading');
+
+      var destinations = getDestinations();
+      var activities = getSelectedActivities();
+
+      var payload = {
+        destinations: destinations,
+        start_date: document.getElementById('dateStart').value,
+        end_date: document.getElementById('dateEnd').value,
+        trip_type: document.getElementById('tripType').value,
+        activities: activities,
+        comments: document.getElementById('comments').value || ''
+      };
+
+      try {
+        var resp = await fetch('https://afvigphyjeytmmwkhnpf.supabase.co/functions/v1/create-trip-request', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify(payload)
+        });
+
+        if (!resp.ok) {
+          console.error('Error response:', await resp.text());
+          alert('Hubo un problema enviando la solicitud.');
+          return;
+        }
+
+        var data = await resp.json();
+        console.log('Solicitud creada:', data);
+
+        formCard.style.display = 'none';
+        if (data.requestid) {
+          successId.textContent = 'Solicitud #' + data.requestid;
+        }
+        successCard.classList.add('is-visible');
+      } catch (err) {
+        console.error(err);
+        alert('Error de red al enviar la solicitud.');
+      } finally {
+        btn.classList.remove('is-loading');
+      }
+    });
+  }
+
+  /* ========================================
      Set min date to today
      ======================================== */
   var today = new Date().toISOString().split('T')[0];
@@ -547,68 +606,8 @@ button{border:none;background:none;cursor:pointer;font-family:inherit;color:inhe
     document.getElementById('dateEnd').setAttribute('min', this.value);
   });
 
-})();
-   // Enlazar envío del formulario a la Edge Function create-trip-request
-(function() {
-  const form = document.getElementById('tripRequestForm');
-  const btn = document.getElementById('btnSubmit');
-  const formCard = document.getElementById('formCard');
-  const successCard = document.getElementById('successCard');
-  const successId = document.getElementById('successId');
+})(); // <- aquí termina TODO el script, ya no hay más IIFEs debajo
 
-  if (!form) return;
-
-  form.addEventListener('submit', async function(e) {
-    e.preventDefault();
-
-    // Usar la validación existente
-    if (typeof validate === 'function' && !validate()) {
-      return;
-    }
-
-    btn.classList.add('is-loading');
-
-    const destinations = getDestinations();
-    const activities = getSelectedActivities();
-
-    const payload = {
-      destinations,
-      start_date: document.getElementById('dateStart').value,
-      end_date: document.getElementById('dateEnd').value,
-      trip_type: document.getElementById('tripType').value,
-      activities,
-      comments: document.getElementById('comments').value || ''
-    };
-
-    try {
-      const resp = await fetch('https://afvigphyjeytmmwkhnpf.supabase.co/functions/v1/create-trip-request', {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify(payload)
-      });
-
-      if (!resp.ok) {
-        console.error('Error response:', await resp.text());
-        alert('Hubo un problema enviando la solicitud.');
-        return;
-      }
-
-      const data = await resp.json();
-      console.log('Solicitud creada:', data);
-
-      formCard.style.display = 'none';
-      if (data.requestid) {
-        successId.textContent = `Solicitud #${data.requestid}`;
-      }
-      successCard.classList.add('is-visible');
-    } catch (err) {
-      console.error(err);
-      alert('Error de red al enviar la solicitud.');
-    } finally {
-      btn.classList.remove('is-loading');
-    }
-  });
-})();
 
 </script>
 </body>
