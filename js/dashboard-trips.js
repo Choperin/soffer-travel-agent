@@ -20,9 +20,9 @@
     html += '</tr></thead><tbody>';
 
     trips.forEach(trip => {
-      const startDate = trip.start_date ? new Date(trip.start_date).toLocaleDateString('es-MX') : 'Sin fecha';
-      const endDate = trip.end_date ? new Date(trip.end_date).toLocaleDateString('es-MX') : 'Sin fecha';
-      const tripType = trip.trip_type || 'No especificado';
+      const startDate = trip.datestart ? new Date(trip.datestart).toLocaleDateString('es-MX') : 'Sin fecha';
+      const endDate = trip.dateend ? new Date(trip.dateend).toLocaleDateString('es-MX') : 'Sin fecha';
+      const tripType = trip.triptype || 'No especificado';
       const status = trip.status || 'pending';
       
       // Badge de status con colores
@@ -59,5 +59,6 @@
 
 // Función para ver detalles de un viaje
 function viewTrip(tripId) {
+  // Redirigir a la página de itinerario con el ID del viaje
   window.location.href = `itinerario.html?trip_id=${tripId}`;
 }
